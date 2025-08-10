@@ -13,7 +13,7 @@ interface UnionOptions extends BaseOptions {
 }
 
 export function union<
-    Items extends readonly [ValidatorFunction<BaseOptions, unknown>, ...Array<ValidatorFunction<BaseOptions, unknown>>],
+    const Items extends readonly [ValidatorFunction<BaseOptions, unknown>, ...Array<ValidatorFunction<BaseOptions, unknown>>],
     Options extends UnionOptions
 >(items: Items, options?: Options): ValidatorFunction<Options, InferSchema<Items>[number]> {
     options = options ?? {} as Options;

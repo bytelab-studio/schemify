@@ -13,7 +13,10 @@ interface TupleOptions extends BaseOptions {
 
 }
 
-export function tuple<Items extends readonly [ValidatorFunction<BaseOptions, unknown>, ...Array<ValidatorFunction<BaseOptions, unknown>>], Options extends TupleOptions>(items: Items, options?: Options): ValidatorFunction<Options, InferSchema<Items>> {
+export function tuple<
+    const Items extends readonly [ValidatorFunction<BaseOptions, unknown>, ...Array<ValidatorFunction<BaseOptions, unknown>>],
+    Options extends TupleOptions
+>(items: Items, options?: Options): ValidatorFunction<Options, InferSchema<Items>> {
     options = options ?? {} as Options;
 
     return raw((value: unknown, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Items>> => {

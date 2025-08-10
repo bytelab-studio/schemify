@@ -38,8 +38,20 @@ export function unionMock(options?: BaseOptions): ValidatorFunction<BaseOptions,
     ], options);
 }
 
+/**
+ * Mock function for {@link Schema.literal}
+ * @param options
+ */
 export function literalMock(options?: BaseOptions): ValidatorFunction<BaseOptions, unknown> {
     return Schema.literal("literal", options);
+}
+
+/**
+ * Mock function for {@link Schema.oneOf}
+ * @param options
+ */
+export function oneOfMock(options?: BaseOptions): ValidatorFunction<BaseOptions, unknown> {
+    return Schema.oneOf(["literal", "literal2"], options);
 }
 
 export function wrapIfNeeded(validator: (...args: unknown[]) => ValidatorFunction<BaseOptions, unknown>): (options?: BaseOptions) => ValidatorFunction<BaseOptions, unknown> {
@@ -57,6 +69,9 @@ export function wrapIfNeeded(validator: (...args: unknown[]) => ValidatorFunctio
     }
     if (validator == Schema.literal) {
         return literalMock;
+    }
+    if (validator == Schema.oneOf) {
+        return oneOfMock;
     }
 
     return validator;

@@ -1,6 +1,6 @@
 import * as Schema from "../src";
 import {describe, test, expect} from "vitest";
-import {getValidators, listMock, literalMock, nestedMock, tupleMock, unionMock} from "./utils";
+import {getValidators, listMock, literalMock, nestedMock, oneOfMock, tupleMock, unionMock} from "./utils";
 
 type Case = [any, Array<(options?: Schema.BaseOptions) => Schema.ValidatorFunction<Schema.BaseOptions, any>>];
 
@@ -23,7 +23,8 @@ export const cases: Case[] = [
     [[], [Schema.array, listMock, Schema.any]],
     [[1, 2, 3], [Schema.array, listMock, Schema.any]],
     [[1, "abc", 3], [tupleMock, Schema.array, Schema.any]],
-    ["literal", [literalMock, unionMock, Schema.string, Schema.any]]
+    ["literal", [literalMock, unionMock, oneOfMock, Schema.string, Schema.any]],
+    ["literal2", [unionMock, oneOfMock, Schema.string, Schema.any]],
 ];
 
 function positiveTest(testString: any, validator: Schema.ValidatorFunction<Schema.BaseOptions, any>): void {
