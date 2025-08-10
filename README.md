@@ -1,4 +1,4 @@
-[![codecov](https://codecov.io/github/bytelab-studio/schemify/branch/master/graph/badge.svg?token=K7Jq4afV6g)](https://codecov.io/github/bytelab-studio/schemify)
+[![codecov](https://codecov.io/github/bytelab-studio/schemify/branch/master/graph/badge.svg?token=K7Jq4afV6g)](https://codecov.io/github/bytelab-studio/schemify/tree/master)
 
 # Schemify
 
