@@ -1,0 +1,49 @@
+{
+    "name": "@bytelab.studio/schemify",
+    "version": "1.0.0",
+    "description": "A modular schema definition and validation framework inspired by Zod, Yup, and Valibot.",
+    "keywords": [
+        "schema",
+        "validation",
+        "type",
+        "parser",
+        "zod",
+        "yup",
+        "valibot",
+        "bytelab",
+        "studio",
+        "schemify",
+        "typescript",
+        "json-schema"
+    ],
+    "license": "MIT",
+    "author": "Christoph Koschel",
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "build": "tsup src/index.ts --format cjs,esm --dts",
+        "dev": "tsup src/index.ts --watch",
+        "clean": "rm -rf dist",
+        "test": "vitest",
+        "cov": "vitest --coverage"
+    },
+    "devDependencies": {
+        "@vitest/coverage-v8": "^3.2.4",
+        "tsup": "^8.5.0",
+        "typescript": "^5.9.2",
+        "vitest": "^3.2.4"
+    }
+}
