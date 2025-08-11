@@ -8,11 +8,11 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface NullOptions extends RawOptions {
+interface NilOptions extends RawOptions {
 
 }
 
-export function nil<Options extends NullOptions>(options?: Options): ValidatorFunction<Options, null> {
+export function nil<Options extends NilOptions>(options?: Options): ValidatorFunction<Options, null> {
     options = options ?? {} as Options;
 
     return raw((value: unknown, context: ValidatorContext): ValidatorReturn<Options, null> => {
