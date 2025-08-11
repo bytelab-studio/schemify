@@ -34,8 +34,8 @@ const schema = Schema.object({
 
 type User = Schema.InferType<typeof schema>;
 
-schema.parse({name: "Alice", age: 21}); // ✅ valid
-schema.parse({name: "Bob", age: 15});   // ❌ throws
+schema({name: "Alice", age: 21}); // ✅ valid
+schema({name: "Bob", age: 15});   // ❌ throws
 ```
 
 ## 📚 Documentation
