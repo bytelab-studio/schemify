@@ -8,7 +8,7 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface EnumOptions extends RawOptions {
+interface OneOfOptions extends RawOptions {
 
 }
 
@@ -16,7 +16,7 @@ type LiteralType = string | number | boolean | bigint;
 
 export function oneOf<
     const Items extends readonly [LiteralType, ...LiteralType[]],
-    Options extends EnumOptions
+    Options extends OneOfOptions
 >(items: Items, options?: Options): ValidatorFunction<Options, Items[number]> {
     return raw((value: unknown, context: ValidatorContext): ValidatorReturn<Options, Items[number]> => {
         if (value === null) {
@@ -44,21 +44,22 @@ export function oneOf<
 
 oneOf[isValidatorSymbol] = true;
 
-export declare namespace oneOf {
-    export function enumValues<
+export namespace oneOf {
+    export declare function enumValues<
         const Items extends Record<string, string | number>,
-        Options extends EnumOptions
-    >(items: Items, options?: EnumOptions): ValidatorFunction<Options, Items[keyof Items]>;
+        Options extends OneOfOptions
+    >(items: Items, options?: OneOfOptions): ValidatorFunction<Options, Items[keyof Items]>;
+
+    export interface EnumValuesOptions extends OneOfOptions {
+
+    }
 }
 
 function enumValues<
     const Items extends Record<string, string | number>,
-    Options extends EnumOptions
->(items: Items, options?: EnumOptions): ValidatorFunction<Options, Items[keyof Items]> {
-    let values: Array<string | number> = Object.values(items);
-    values = values.slice(values.length / 2);
-
-    return oneOf(values as [(string | number), ...(string | number)[]], options) as ValidatorFunction<Options, Items[keyof Items]>;
+    Options extends oneOf.EnumValuesOptions
+>(items: Items, options?: Options): ValidatorFunction<Options, Items[keyof Items]> {
+    return oneOf(Object.values(items) as [(string | number), ...(string | number)[]], options) as ValidatorFunction<Options, Items[keyof Items]>;
 }
 
 enumValues[isValidatorSymbol] = true;

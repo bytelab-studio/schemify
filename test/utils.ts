@@ -55,8 +55,8 @@ export function oneOfMock(options?: RawOptions): ValidatorFunction<RawOptions, u
 }
 
 export enum Enum {
-    A = "literal",
-    B = "literal2"
+    A = "enumA",
+    B = "enumB"
 }
 
 /**
@@ -86,12 +86,15 @@ export function wrapIfNeeded(validator: (...args: unknown[]) => ValidatorFunctio
     if (validator == Schema.oneOf) {
         return oneOfMock;
     }
+    if (validator == Schema.oneOf.enumValues) {
+        return oneOfEnumMock;
+    }
 
     return validator;
 }
 
-export function* getValidators(): Generator<(options?: RawOptions) => ValidatorFunction<RawOptions, unknown>> {
-    for (const validatorBox of Object.values(Schema)) {
+export function* getValidators(base: object = Schema): Generator<(options?: RawOptions) => ValidatorFunction<RawOptions, unknown>> {
+    for (const validatorBox of Object.values(base)) {
         if (!Schema.isValidator(validatorBox)) {
             continue;
         }
@@ -100,5 +103,7 @@ export function* getValidators(): Generator<(options?: RawOptions) => ValidatorF
         }
 
         yield wrapIfNeeded(validatorBox);
+
+        yield* getValidators(validatorBox);
     }
 }
