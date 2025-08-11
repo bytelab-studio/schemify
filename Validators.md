@@ -19,6 +19,8 @@ This document lists all available validators grouped by module.
     - [Schema.list](#schemalist)
     - [Schema.literal](#schemaliteral)
     - [Schema.nested](#schemanested)
+    - [Schema.oneOf](#schemaoneof)
+    - [Schema.oneOf.enumValues](#schemaoneofenumvalues)
     - [Schema.tuple](#schematuple)
     - [Schema.union](#schemaunion)
 
@@ -339,6 +341,58 @@ Schema({
 #### Options
 
 Inherits options from [Schema.raw](#schemaraw)
+
+This validator does not define any options.
+
+### `Schema.oneOf`
+
+Validates that the provided value is exactly equal to one of the specified literal values.
+
+#### Usage
+
+```typescript
+import * as Schema from "@bytelab.studio/schemify";
+
+const schema = Schema.oneOf([123, "abc"]);
+
+schema(123);
+schema("abc");
+schema("red"); // throws SchemaError
+```
+
+#### Options
+
+Inherits options from [Schema.raw](#schemaraw)
+
+This validator does not define any options.
+
+### `Schema.oneOf.enumValues`
+
+A specialized sub-function of `Schema.oneOf` that accepts a TypeScript enum and validates that the value matches one of
+the enum’s values.
+
+This validator extracts the numeric or string values from a TypeScript enum and uses Schema.oneOf internally to validate
+that the input value matches one of those enum values.
+
+#### Usage
+
+```typescript
+import * as Schema from "@bytelab.studio/schemify";
+
+enum Color {
+    Red,
+    Green,
+    Blue
+}
+
+const schema = Schema.oneOf.enumValues(Color);
+
+schema(Color.Red);
+```
+
+#### Options
+
+Inherits options from [Schema.oneOf](#schemaoneof)
 
 This validator does not define any options.
 
