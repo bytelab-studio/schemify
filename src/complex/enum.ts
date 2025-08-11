@@ -44,8 +44,8 @@ export function oneOf<
 
 oneOf[isValidatorSymbol] = true;
 
-export namespace oneOf {
-    export declare function enumValues<
+export declare namespace oneOf {
+    export function enumValues<
         const Items extends Record<string, string | number>,
         Options extends OneOfOptions
     >(items: Items, options?: OneOfOptions): ValidatorFunction<Options, Items[keyof Items]>;
