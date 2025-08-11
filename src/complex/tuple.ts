@@ -1,5 +1,5 @@
 import {
-    BaseOptions,
+    RawOptions,
     InferSchema,
     isValidatorSymbol,
     raw,
@@ -9,12 +9,12 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface TupleOptions extends BaseOptions {
+interface TupleOptions extends RawOptions {
 
 }
 
 export function tuple<
-    const Items extends readonly [ValidatorFunction<BaseOptions, unknown>, ...Array<ValidatorFunction<BaseOptions, unknown>>],
+    const Items extends readonly [ValidatorFunction<RawOptions, unknown>, ...Array<ValidatorFunction<RawOptions, unknown>>],
     Options extends TupleOptions
 >(items: Items, options?: Options): ValidatorFunction<Options, InferSchema<Items>> {
     options = options ?? {} as Options;

@@ -1,5 +1,5 @@
 import {
-    BaseOptions,
+    RawOptions,
     isValidatorSymbol,
     raw,
     SchemaError,
@@ -8,7 +8,7 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface UndefinedOptions extends BaseOptions {
+interface UndefinedOptions extends RawOptions {
 
 }
 

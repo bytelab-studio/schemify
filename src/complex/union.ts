@@ -1,6 +1,7 @@
 import {
-    BaseOptions,
-    InferSchema, isValidatorSymbol,
+    RawOptions,
+    InferSchema,
+    isValidatorSymbol,
     raw,
     SchemaError,
     ValidatorContext,
@@ -8,12 +9,12 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface UnionOptions extends BaseOptions {
+interface UnionOptions extends RawOptions {
 
 }
 
 export function union<
-    const Items extends readonly [ValidatorFunction<BaseOptions, unknown>, ...Array<ValidatorFunction<BaseOptions, unknown>>],
+    const Items extends readonly [ValidatorFunction<RawOptions, unknown>, ...Array<ValidatorFunction<RawOptions, unknown>>],
     Options extends UnionOptions
 >(items: Items, options?: Options): ValidatorFunction<Options, InferSchema<Items>[number]> {
     options = options ?? {} as Options;

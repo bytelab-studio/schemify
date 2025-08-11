@@ -1,6 +1,7 @@
 import {
-    BaseOptions,
-    InferSchema, isValidatorSymbol,
+    RawOptions,
+    InferSchema,
+    isValidatorSymbol,
     raw,
     SchemaError,
     ValidatorContext,
@@ -8,12 +9,12 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface ListOptions extends BaseOptions {
+interface ListOptions extends RawOptions {
     minLength?: number;
     maxLength?: number;
 }
 
-export function list<Item extends ValidatorFunction<BaseOptions, unknown>, Options extends ListOptions>(item: Item, options?: Options): ValidatorFunction<Options, Array<InferSchema<Item>>> {
+export function list<Item extends ValidatorFunction<RawOptions, unknown>, Options extends ListOptions>(item: Item, options?: Options): ValidatorFunction<Options, Array<InferSchema<Item>>> {
     options = options ?? {} as Options;
 
     return raw((value: unknown, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Item>[]> => {

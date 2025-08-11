@@ -1,6 +1,6 @@
 import {
-    BaseOptions,
-    InferSchema, isValidatorSymbol,
+    RawOptions,
+    isValidatorSymbol,
     raw,
     SchemaError,
     ValidatorContext,
@@ -8,7 +8,7 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface EnumOptions extends BaseOptions {
+interface EnumOptions extends RawOptions {
 
 }
 

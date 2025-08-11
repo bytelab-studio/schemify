@@ -1,11 +1,11 @@
-import type {BaseOptions, ValidatorFunction} from "../src";
+import type {RawOptions, ValidatorFunction} from "../src";
 import * as Schema from "../src";
 
 /**
  * Mock function for {@link Schema.nested}
  * @param options
  */
-export function nestedMock(options?: BaseOptions): ValidatorFunction<BaseOptions, unknown> {
+export function nestedMock(options?: RawOptions): ValidatorFunction<RawOptions, unknown> {
     return Schema.nested({
         prop1: Schema.number()
     }, options);
@@ -15,7 +15,7 @@ export function nestedMock(options?: BaseOptions): ValidatorFunction<BaseOptions
  * Mock function for {@link Schema.list}
  * @param options
  */
-export function listMock(options?: BaseOptions): ValidatorFunction<BaseOptions, unknown> {
+export function listMock(options?: RawOptions): ValidatorFunction<RawOptions, unknown> {
     return Schema.list(Schema.number(), options);
 }
 
@@ -23,7 +23,7 @@ export function listMock(options?: BaseOptions): ValidatorFunction<BaseOptions, 
  * Mock function for {@link Schema.tuple}
  * @param options
  */
-export function tupleMock(options?: BaseOptions): ValidatorFunction<BaseOptions, unknown> {
+export function tupleMock(options?: RawOptions): ValidatorFunction<RawOptions, unknown> {
     return Schema.tuple([Schema.number(), Schema.string(), Schema.number()], options);
 }
 
@@ -31,7 +31,7 @@ export function tupleMock(options?: BaseOptions): ValidatorFunction<BaseOptions,
  * Mock function for {@link Schema.union}
  * @param options
  */
-export function unionMock(options?: BaseOptions): ValidatorFunction<BaseOptions, unknown> {
+export function unionMock(options?: RawOptions): ValidatorFunction<RawOptions, unknown> {
     return Schema.union([
         Schema.string(),
         Schema.number()
@@ -42,7 +42,7 @@ export function unionMock(options?: BaseOptions): ValidatorFunction<BaseOptions,
  * Mock function for {@link Schema.literal}
  * @param options
  */
-export function literalMock(options?: BaseOptions): ValidatorFunction<BaseOptions, unknown> {
+export function literalMock(options?: RawOptions): ValidatorFunction<RawOptions, unknown> {
     return Schema.literal("literal", options);
 }
 
@@ -50,11 +50,11 @@ export function literalMock(options?: BaseOptions): ValidatorFunction<BaseOption
  * Mock function for {@link Schema.oneOf}
  * @param options
  */
-export function oneOfMock(options?: BaseOptions): ValidatorFunction<BaseOptions, unknown> {
+export function oneOfMock(options?: RawOptions): ValidatorFunction<RawOptions, unknown> {
     return Schema.oneOf(["literal", "literal2"], options);
 }
 
-export function wrapIfNeeded(validator: (...args: unknown[]) => ValidatorFunction<BaseOptions, unknown>): (options?: BaseOptions) => ValidatorFunction<BaseOptions, unknown> {
+export function wrapIfNeeded(validator: (...args: unknown[]) => ValidatorFunction<RawOptions, unknown>): (options?: RawOptions) => ValidatorFunction<RawOptions, unknown> {
     if (validator == Schema.nested) {
         return nestedMock;
     }
@@ -77,7 +77,7 @@ export function wrapIfNeeded(validator: (...args: unknown[]) => ValidatorFunctio
     return validator;
 }
 
-export function* getValidators(): Generator<(options?: BaseOptions) => ValidatorFunction<BaseOptions, unknown>> {
+export function* getValidators(): Generator<(options?: RawOptions) => ValidatorFunction<RawOptions, unknown>> {
     for (const validatorBox of Object.values(Schema)) {
         if (!Schema.isValidator(validatorBox)) {
             continue;

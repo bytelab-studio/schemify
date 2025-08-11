@@ -2,7 +2,7 @@ import * as Schema from "../src";
 import {describe, test, expect} from "vitest";
 import {getValidators, listMock, literalMock, nestedMock, oneOfMock, tupleMock, unionMock} from "./utils";
 
-type Case = [any, Array<(options?: Schema.BaseOptions) => Schema.ValidatorFunction<Schema.BaseOptions, any>>];
+type Case = [any, Array<(options?: Schema.RawOptions) => Schema.ValidatorFunction<Schema.RawOptions, any>>];
 
 export const cases: Case[] = [
     ["abc", [Schema.string, unionMock, Schema.any]],
@@ -27,14 +27,14 @@ export const cases: Case[] = [
     ["literal2", [unionMock, oneOfMock, Schema.string, Schema.any]],
 ];
 
-function positiveTest(testString: any, validator: Schema.ValidatorFunction<Schema.BaseOptions, any>): void {
+function positiveTest(testString: any, validator: Schema.ValidatorFunction<Schema.RawOptions, any>): void {
     test(`'${testString}' -> pass`, () => {
         const context = new Schema.ValidatorContext();
         expect(() => validator(testString, context)).not.throws();
     });
 }
 
-function negativeTest(testString: any, validator: Schema.ValidatorFunction<Schema.BaseOptions, any>): void {
+function negativeTest(testString: any, validator: Schema.ValidatorFunction<Schema.RawOptions, any>): void {
     test(`'${testString}' -> throw`, () => {
         const context = new Schema.ValidatorContext();
         expect(() => validator(testString, context)).throws();

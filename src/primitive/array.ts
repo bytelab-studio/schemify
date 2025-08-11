@@ -1,5 +1,5 @@
 import {
-    BaseOptions,
+    RawOptions,
     isValidatorSymbol,
     raw,
     SchemaError,
@@ -8,7 +8,7 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface ArrayOptions extends BaseOptions {
+interface ArrayOptions extends RawOptions {
     maxLength?: number;
     minLength?: number;
 }

@@ -1,8 +1,14 @@
 import {
-    BaseOptions, isValidatorSymbol, ValidatorFunction, ValidatorReturn, SchemaError, ValidatorContext, raw,
+    RawOptions,
+    isValidatorSymbol,
+    ValidatorFunction,
+    ValidatorReturn,
+    SchemaError,
+    ValidatorContext,
+    raw,
 } from "../core";
 
-interface StringOptions extends BaseOptions {
+interface StringOptions extends RawOptions {
     maxLength?: number;
     minLength?: number;
 }

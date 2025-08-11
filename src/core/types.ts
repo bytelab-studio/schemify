@@ -1,18 +1,14 @@
 import {ValidatorContext} from "./utils";
+import {RawOptions} from "./raw";
 
 export const isValidatorSymbol: unique symbol = Symbol("isValidatorSymbol");
 
-export interface BaseOptions {
-    nullable?: boolean;
-    optional?: boolean;
-}
-
-export type ValidatorReturn<Options extends BaseOptions, TypeBase> =
+export type ValidatorReturn<Options extends RawOptions, TypeBase> =
     TypeBase
     | (Options["nullable"] extends true ? null : never)
     | (Options["optional"] extends true ? undefined : never);
 
-export type ValidatorFunction<Options extends BaseOptions, TypeBase> = (value: unknown, context: ValidatorContext) => ValidatorReturn<Options, TypeBase>;
+export type ValidatorFunction<Options extends RawOptions, TypeBase> = (value: unknown, context: ValidatorContext) => ValidatorReturn<Options, TypeBase>;
 
 export type InferSchema<T> =
     // simple

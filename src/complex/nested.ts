@@ -1,5 +1,5 @@
 import {
-    BaseOptions,
+    RawOptions,
     InferSchema,
     isValidatorSymbol,
     raw,
@@ -9,11 +9,11 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface NestedOptions extends BaseOptions {
+interface NestedOptions extends RawOptions {
 
 }
 
-export function nested<Schema extends Record<string, ValidatorFunction<BaseOptions, unknown>>, Options extends NestedOptions>(schema: Schema, options?: Options): ValidatorFunction<Options, InferSchema<Schema>> {
+export function nested<Schema extends Record<string, ValidatorFunction<RawOptions, unknown>>, Options extends NestedOptions>(schema: Schema, options?: Options): ValidatorFunction<Options, InferSchema<Schema>> {
     options = options ?? {} as Options;
 
     return raw((value: unknown, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Schema>> => {
