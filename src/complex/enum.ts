@@ -43,3 +43,23 @@ export function oneOf<
 }
 
 oneOf[isValidatorSymbol] = true;
+
+export declare namespace oneOf {
+    export function enumValues<
+        const Items extends Record<string, string | number>,
+        Options extends EnumOptions
+    >(items: Items, options?: EnumOptions): ValidatorFunction<Options, Items[keyof Items]>;
+}
+
+function enumValues<
+    const Items extends Record<string, string | number>,
+    Options extends EnumOptions
+>(items: Items, options?: EnumOptions): ValidatorFunction<Options, Items[keyof Items]> {
+    let values: Array<string | number> = Object.values(items);
+    values = values.slice(values.length / 2);
+
+    return oneOf(values as [(string | number), ...(string | number)[]], options) as ValidatorFunction<Options, Items[keyof Items]>;
+}
+
+enumValues[isValidatorSymbol] = true;
+oneOf.enumValues = enumValues;

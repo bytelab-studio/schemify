@@ -54,6 +54,19 @@ export function oneOfMock(options?: RawOptions): ValidatorFunction<RawOptions, u
     return Schema.oneOf(["literal", "literal2"], options);
 }
 
+export enum Enum {
+    A = "literal",
+    B = "literal2"
+}
+
+/**
+ * Mock function for {@link Schema.oneOf.enumValues}
+ * @param options
+ */
+export function oneOfEnumMock(options?: RawOptions): ValidatorFunction<RawOptions, unknown> {
+    return Schema.oneOf.enumValues(Enum, options);
+}
+
 export function wrapIfNeeded(validator: (...args: unknown[]) => ValidatorFunction<RawOptions, unknown>): (options?: RawOptions) => ValidatorFunction<RawOptions, unknown> {
     if (validator == Schema.nested) {
         return nestedMock;
