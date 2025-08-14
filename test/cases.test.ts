@@ -7,7 +7,7 @@ import {
     literalMock,
     nestedMock,
     oneOfEnumMock,
-    oneOfMock, patternMock,
+    oneOfMock, patternMock, recordMock,
     tupleMock,
     unionMock
 } from "./utils";
@@ -28,7 +28,7 @@ export const cases: Case[] = [
     [undefined, [Schema.undef]],
     [false, [Schema.boolean, Schema.any]],
     [true, [Schema.boolean, Schema.any]],
-    [{}, [Schema.object, Schema.any]],
+    [{}, [Schema.object, recordMock, Schema.any]],
     [{prop1: 123}, [Schema.object, nestedMock, Schema.any]],
     [[], [Schema.array, listMock, Schema.any]],
     [[1, 2, 3], [Schema.array, listMock, Schema.any]],

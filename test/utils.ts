@@ -75,6 +75,14 @@ export function patternMock(options?: RawOptions): ValidatorFunction<RawOptions,
     return Schema.pattern(/pattern/, options);
 }
 
+/**
+ * Mock function for {@link Schema.record}
+ * @param options
+ */
+export function recordMock(options?: RawOptions): ValidatorFunction<RawOptions, unknown> {
+    return Schema.record(Schema.string(), Schema.string(), options);
+}
+
 export function wrapIfNeeded(validator: (...args: unknown[]) => ValidatorFunction<RawOptions, unknown>): (options?: RawOptions) => ValidatorFunction<RawOptions, unknown> {
     if (validator == Schema.nested) {
         return nestedMock;
@@ -99,6 +107,9 @@ export function wrapIfNeeded(validator: (...args: unknown[]) => ValidatorFunctio
     }
     if (validator == Schema.pattern) {
         return patternMock;
+    }
+    if (validator == Schema.record) {
+        return recordMock;
     }
 
     return validator;

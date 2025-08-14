@@ -22,6 +22,8 @@ This document lists all available validators grouped by module.
     - [Schema.nested](#schemanested)
     - [Schema.oneOf](#schemaoneof)
     - [Schema.oneOf.enumValues](#schemaoneofenumvalues)
+    - [Schema.pattern](#schemapattern)
+    - [Schema.record](#schemarecord)
     - [Schema.tuple](#schematuple)
     - [Schema.union](#schemaunion)
 
@@ -451,6 +453,53 @@ schema(Color.Red);
 #### Options
 
 Inherits options from [Schema.oneOf](#schemaoneof)
+
+This validator does not define any options.
+
+### `Schema.pattern`
+
+Validates that a string matches a given regular expression.
+
+```typescript
+import * as Schema from "@bytelab.studio/schemify";
+
+const schema = Schema.pattern(/abc/);
+
+schema("abc");
+schema("123"); // <-- throws SchemaError
+```
+
+#### Options
+
+Inherits options from [Schema.string](#schemastring)
+
+This validator does not define any options.
+
+### `Schema.record`
+
+Validates that the provided value is a plain object whose keys and values both match the given validators.
+
+```typescript
+import * as Schema from "@bytelab.studio/schemify";
+
+const schema = Schema.record(Schema.string(), Schema.number());
+
+schema({
+    a: 1,
+    b: 2,
+    c: 3
+});
+
+schema({
+    a: 1,
+    b: 2,
+    c: "3"
+}); // <-- throws SchemaError
+```
+
+#### Options
+
+Inherits options from [Schema.object](#schemaobject)
 
 This validator does not define any options.
 

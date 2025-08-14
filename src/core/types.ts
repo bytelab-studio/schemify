@@ -20,3 +20,5 @@ export type InferSchema<T> =
     // object
     T extends object ? { [K in keyof T]: InferSchema<T[K]> } :
     never;
+
+export type IsAcceptable<A, B> = A extends B ? A : never;
