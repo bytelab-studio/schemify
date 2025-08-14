@@ -1,4 +1,4 @@
-import {raw, SchemaError, ValidatorContext, ValidatorFunction, ValidatorReturn} from "../core";
+import {isValidatorSymbol, raw, SchemaError, ValidatorContext, ValidatorFunction, ValidatorReturn} from "../core";
 import {string, StringOptions} from "../primitive"
 
 interface PatternOptions extends StringOptions {
@@ -22,3 +22,5 @@ export function pattern<Options extends PatternOptions>(pattern: RegExp, options
         return str;
     });
 }
+
+pattern[isValidatorSymbol] = true;

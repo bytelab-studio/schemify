@@ -1,4 +1,12 @@
-import {raw, RawOptions, SchemaError, ValidatorContext, ValidatorFunction, ValidatorReturn} from "../core";
+import {
+    isValidatorSymbol,
+    raw,
+    RawOptions,
+    SchemaError,
+    ValidatorContext,
+    ValidatorFunction,
+    ValidatorReturn
+} from "../core";
 
 interface BigIntOptions extends RawOptions {
     min?: bigint;
@@ -40,3 +48,5 @@ export function bigint<Options extends BigIntOptions>(options?: Options): Valida
         return value;
     });
 }
+
+bigint[isValidatorSymbol] = true;
