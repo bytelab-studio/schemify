@@ -31,7 +31,7 @@ export function object<Options extends ObjectOptions>(options?: Options): Valida
             throw new SchemaError("Value is undefined", context);
         }
 
-        if (typeof value != "object" || Array.isArray(value)) {
+        if (typeof value != "object" || Array.isArray(value) || value instanceof RegExp) {
             throw new SchemaError("Value is not an object", context);
         }
 

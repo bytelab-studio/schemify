@@ -219,6 +219,24 @@ Inherits options from [Schema.raw](#schemaraw)
 
 This validator does not define any options.
 
+### `Schema.regex`
+
+Validates that the provided value is a RegExp instance.
+
+```typescript
+import * as Schema from "@bytelab.studio/schemify";
+
+const schema = Schema.regex();
+
+schema(/abc/);
+```
+
+#### Options
+
+Inherits options from [Schema.raw](#schemaraw)
+
+This validator does not define any options.
+
 ### `Schema.string`
 
 Validates that the provided value is a string. Supports enforcing minimum and maximum length constraints.
