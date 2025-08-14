@@ -12,7 +12,7 @@ interface RegexOptions extends RawOptions {
 
 }
 
-export function regex<Options extends RegexOptions>(options?: Options): ValidatorFunction<Options, RegExp> {
+export function regexp<Options extends RegexOptions>(options?: Options): ValidatorFunction<Options, RegExp> {
     options = options ?? {} as Options;
 
     return raw((value: unknown, context: ValidatorContext): ValidatorReturn<Options, RegExp> => {
@@ -39,4 +39,4 @@ export function regex<Options extends RegexOptions>(options?: Options): Validato
     });
 }
 
-regex[isValidatorSymbol] = true;
+regexp[isValidatorSymbol] = true;

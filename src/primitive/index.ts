@@ -4,7 +4,7 @@ export * from "./boolean";
 export * from "./null";
 export * from "./number";
 export * from "./object";
-export * from "./regex";
+export * from "./regexp";
 export * from "./string";
 export * from "./symbol";
 export * from "./undefined";

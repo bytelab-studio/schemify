@@ -219,14 +219,14 @@ Inherits options from [Schema.raw](#schemaraw)
 
 This validator does not define any options.
 
-### `Schema.regex`
+### `Schema.regexp`
 
 Validates that the provided value is a RegExp instance.
 
 ```typescript
 import * as Schema from "@bytelab.studio/schemify";
 
-const schema = Schema.regex();
+const schema = Schema.regexp();
 
 schema(/abc/);
 ```
