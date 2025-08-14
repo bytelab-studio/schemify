@@ -39,6 +39,10 @@ export const cases: Case[] = [
     [Enum.B, [unionMock, oneOfEnumMock, Schema.string, Schema.any]],
     [Symbol("symbol"), [Schema.symbol, Schema.any]],
     [/regexp/, [Schema.regexp, Schema.any]],
+    [-123n, [Schema.bigint, Schema.any]],
+    [123n, [Schema.bigint, Schema.any]],
+    [-0n, [Schema.bigint, Schema.any]],
+    [0n, [Schema.bigint, Schema.any]],
 ];
 
 function valueToString(value: unknown): string {

@@ -129,6 +129,27 @@ Inherits options from [Schema.raw](#schemaraw)
 | `minLength` | number | undefined | Minimum length of the array. |
 | `maxLength` | number | undefined | Maximum length of the array. |
 
+### `Schema.bigint`
+
+Validates that the provided value is a JavaScript `bigint`.
+
+```typescript
+import * as Schema from "@bytelab.studio/schemify";
+
+const schema = Schema.bigint();
+
+schema(123n);
+```
+
+#### Options
+
+Inherits options from [Schema.raw](#schemaraw)
+
+| Options | Type   | Default   | Description            |
+|---------|--------|-----------|------------------------|
+| `min`   | bigint | undefined | Minimum allowed value. |
+| `max`   | bigint | undefined | Maximum allowed value. |
+
 ### `Schema.boolean`
 
 Validates that the provided value is a boolean.
