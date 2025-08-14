@@ -8,7 +8,7 @@ import {
     raw,
 } from "../core";
 
-interface StringOptions extends RawOptions {
+export interface StringOptions extends RawOptions {
     maxLength?: number;
     minLength?: number;
 }

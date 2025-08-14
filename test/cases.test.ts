@@ -7,7 +7,7 @@ import {
     literalMock,
     nestedMock,
     oneOfEnumMock,
-    oneOfMock,
+    oneOfMock, patternMock,
     tupleMock,
     unionMock
 } from "./utils";
@@ -43,6 +43,7 @@ export const cases: Case[] = [
     [123n, [Schema.bigint, Schema.any]],
     [-0n, [Schema.bigint, Schema.any]],
     [0n, [Schema.bigint, Schema.any]],
+    ["pattern", [unionMock, patternMock, Schema.string, Schema.any]],
 ];
 
 function valueToString(value: unknown): string {

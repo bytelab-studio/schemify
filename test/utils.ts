@@ -67,6 +67,14 @@ export function oneOfEnumMock(options?: RawOptions): ValidatorFunction<RawOption
     return Schema.oneOf.enumValues(Enum, options);
 }
 
+/**
+ * Mock function for {@link Schema.pattern}
+ * @param options
+ */
+export function patternMock(options?: RawOptions): ValidatorFunction<RawOptions, unknown> {
+    return Schema.pattern(/pattern/, options);
+}
+
 export function wrapIfNeeded(validator: (...args: unknown[]) => ValidatorFunction<RawOptions, unknown>): (options?: RawOptions) => ValidatorFunction<RawOptions, unknown> {
     if (validator == Schema.nested) {
         return nestedMock;
@@ -88,6 +96,9 @@ export function wrapIfNeeded(validator: (...args: unknown[]) => ValidatorFunctio
     }
     if (validator == Schema.oneOf.enumValues) {
         return oneOfEnumMock;
+    }
+    if (validator == Schema.pattern) {
+        return patternMock;
     }
 
     return validator;
