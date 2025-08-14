@@ -14,6 +14,7 @@ This document lists all available validators grouped by module.
     - [Schema.number](#schemanumber)
     - [Schema.object](#schemaobject)
     - [Schema.string](#schemastring)
+    - [Schema.symbol](#schemasymbol)
     - [Schema.undef](#schemaundef)
 - [complex](#complex-module)
     - [Schema.list](#schemalist)
@@ -239,6 +240,24 @@ Inherits options from [Schema.raw](#schemaraw)
 |-------------|--------|-----------|-------------------------------|
 | `minLength` | number | undefined | Minimum length of the string. |
 | `maxLength` | number | undefined | Maximum length of the string. |
+
+### `Schema.symbol`
+
+Validates that the provided value is of type `symbol`.
+
+```typescript
+import * as Schema from "@bytelab.studio/schemify";
+
+const schema = Schema.symbol();
+
+schema(Symbol("hello"));
+```
+
+#### Options
+
+Inherits options from [Schema.raw](#schemaraw)
+
+This validator does not define any options.
 
 ### `Schema.undef`
 

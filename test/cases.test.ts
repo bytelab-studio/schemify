@@ -37,17 +37,33 @@ export const cases: Case[] = [
     ["literal2", [unionMock, oneOfMock, Schema.string, Schema.any]],
     [Enum.A, [unionMock, oneOfEnumMock, Schema.string, Schema.any]],
     [Enum.B, [unionMock, oneOfEnumMock, Schema.string, Schema.any]],
+    [Symbol("symbol"), [Schema.symbol, Schema.any]],
 ];
 
+function valueToString(value: unknown): string {
+    if (typeof value == "symbol") {
+        return value.toString();
+    }
+    if (typeof value == "object" && value !== null) {
+        return JSON.stringify(value);
+    }
+
+    return `${value}`;
+}
+
 function positiveTest(testString: any, validator: Schema.ValidatorFunction<Schema.RawOptions, any>): void {
-    test(`'${testString}' -> pass`, () => {
+    const key: string = valueToString(testString);
+
+    test(`'${key}' -> pass`, () => {
         const context = new Schema.ValidatorContext();
         expect(() => validator(testString, context)).not.throws();
     });
 }
 
 function negativeTest(testString: any, validator: Schema.ValidatorFunction<Schema.RawOptions, any>): void {
-    test(`'${testString}' -> throw`, () => {
+    const key: string = valueToString(testString);
+
+    test(`'${key}' -> throw`, () => {
         const context = new Schema.ValidatorContext();
         expect(() => validator(testString, context)).throws();
     });
