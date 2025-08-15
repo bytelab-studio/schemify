@@ -9,3 +9,4 @@ export * from "./regexp";
 export * from "./string";
 export * from "./symbol";
 export * from "./undefined";
+export * from "./unknown";
