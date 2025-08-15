@@ -44,6 +44,8 @@ export const cases: Case[] = [
     [-0n, [Schema.bigint, Schema.any, Schema.unknown]],
     [0n, [Schema.bigint, Schema.any, Schema.unknown]],
     ["pattern", [unionMock, patternMock, Schema.string, Schema.any, Schema.unknown]],
+    [() => {}, [Schema.callable, Schema.any, Schema.unknown]],
+    [function () {}, [Schema.callable, Schema.any, Schema.unknown]],
 ];
 
 function valueToString(value: unknown): string {

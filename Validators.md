@@ -173,6 +173,19 @@ Inherits options from [Schema.raw](#schemaraw)
 
 This validator does not define any options.
 
+### `Schema.callable`
+
+Validates that the value is a JavaScript function.
+
+```typescript
+import * as Schema from "@bytelab.studio/schemify";
+
+const schema = Schema.callable();
+
+schema(() => {});
+schema(function () {});
+```
+
 ### `Schema.nil`
 
 Validates that the provided value is exactly `null`.
