@@ -3,6 +3,7 @@ export * from "./array";
 export * from "./bigint";
 export * from "./boolean";
 export * from "./callable";
+export * from "./never";
 export * from "./null";
 export * from "./number";
 export * from "./object";

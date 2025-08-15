@@ -9,13 +9,18 @@ This document lists all available validators grouped by module.
 - [primitive](#primitive-module)
     - [Schema.any](#schemaany)
     - [Schema.array](#schemaarray)
+    - [Schema.bigint](#schemabigint)
     - [Schema.boolean](#schemaboolean)
+    - [Schema.callable](#schemacallable)
+    - [Schema.never](#schemanever)
     - [Schema.nil](#schemanil)
     - [Schema.number](#schemanumber)
     - [Schema.object](#schemaobject)
+    - [Schema.regexp](#schemaregexp)
     - [Schema.string](#schemastring)
     - [Schema.symbol](#schemasymbol)
     - [Schema.undef](#schemaundef)
+    - [Schema.unknown](#schemaunknown)
 - [complex](#complex-module)
     - [Schema.list](#schemalist)
     - [Schema.literal](#schemaliteral)
@@ -185,6 +190,39 @@ const schema = Schema.callable();
 schema(() => {});
 schema(function () {});
 ```
+
+### `Schema.never`
+
+A validator that always fails when the value exists.
+This is useful for explicitly disallowing certain fields in a schema.
+
+```typescript
+import * as Schema from "@bytelab.studio/schemify";
+
+const schema = Schema.never();
+
+schema(123); // <-- throws SchemaError
+schema("abc"); // <-- throws SchemaError
+schema(undefined) // <-- throws SchemaError
+```
+
+```typescript
+import * as Schema from "@bytelab.studio/schemify";
+
+const schema = Schema.nested({
+    protectedProp: Schema.never()
+});
+
+schema({});
+schema({protectedProp: 123}); // <-- throws SchemaError
+schema({protectedProp: undefined}); // <-- throws SchemaError
+```
+
+#### Options
+
+This validator inherits no options.
+
+This validator does not define any options.
 
 ### `Schema.nil`
 

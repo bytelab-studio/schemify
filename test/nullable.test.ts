@@ -4,6 +4,10 @@ import * as Schema from "../src";
 
 describe("nullable", () => {
     for (const validatorBox of getValidators()) {
+        if (validatorBox == Schema.never) {
+            continue;
+        }
+
         describe(`'${validatorBox.name}' validator`, () => {
             test("pass", () => {
                 const validator = validatorBox({

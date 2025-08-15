@@ -44,8 +44,7 @@ export function tuple<
         }
 
         for (let i: number = 0; i < value.length; i++) {
-            const ctx: ValidatorContext = context.clone();
-            ctx.pushPath(i);
+            const ctx: ValidatorContext = context.createChild(i, true);
 
             const prop: unknown = value[i];
             items[i](prop, ctx);

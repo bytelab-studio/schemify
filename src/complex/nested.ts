@@ -37,9 +37,7 @@ export function nested<Schema extends Record<string, ValidatorFunction<RawOption
         }
 
         for (const [key, validator] of Object.entries(schema)) {
-            const ctx: ValidatorContext = context.clone();
-            ctx.pushPath(key);
-
+            const ctx: ValidatorContext = context.createChild(key, key in value);
             const prop: unknown = key in value ? (value as any)[key]: undefined;
             validator(prop, ctx);
         }

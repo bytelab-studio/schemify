@@ -6,8 +6,8 @@ export class SchemaError extends Error {
     public readonly name: string = "SchemaError";
 
     public constructor(message: string, ctx: ValidatorContext) {
-        const formatedMessage: string = ctx.hasPath()
-            ? `${ctx.getPathString()}: ${message}`
+        const formatedMessage: string = ctx.hasPath
+            ? `${ctx.path}: ${message}`
             : message;
 
         super(formatedMessage)
@@ -17,32 +17,33 @@ export class SchemaError extends Error {
 }
 
 export class ValidatorContext {
-    private path: Array<string | number> = [];
+    private readonly _path: Array<string | number>;
+    private readonly _existed: boolean = false;
 
-    public constructor() {
-
+    public constructor();
+    public constructor(existed: boolean);
+    public constructor(existed?: boolean) {
+        this._path = [];
+        this._existed = existed ?? true
     }
 
-    public pushPath(item: string | number): void {
-        this.path.push(item);
-    }
+    public createChild(name: string | number, existed: boolean): ValidatorContext {
+        const context = new ValidatorContext(existed);
+        context._path.push(...this._path, name);
 
-    public popPath(): void {
-        this.path.pop();
-    }
-
-    public clone(): ValidatorContext {
-        const context = new ValidatorContext();
-        context.path = [...this.path];
         return context;
     }
 
-    public getPathString(): string {
-        return this.path.join(".");
+    public get path(): string {
+        return this._path.join(".");
     }
 
-    public hasPath(): boolean {
-        return this.path.length > 0;
+    public get hasPath(): boolean {
+        return this._path.length > 0;
+    }
+
+    public get existed(): boolean {
+        return this._existed;
     }
 }
 

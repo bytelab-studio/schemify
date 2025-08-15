@@ -29,9 +29,7 @@ export function record<
         }
 
         for (const [k, v] of Object.entries(obj)) {
-            const ctx: ValidatorContext = context.clone();
-            ctx.pushPath(k);
-
+            const ctx: ValidatorContext = context.createChild(k, true);
             key(k, ctx);
             property(v, ctx);
         }
