@@ -2,7 +2,7 @@ import * as Schema from "../src";
 import {describe, test, expect} from "vitest";
 import {
     Enum,
-    getValidators,
+    getValidators, instanceOfMock,
     listMock,
     literalMock,
     nestedMock,
@@ -46,6 +46,7 @@ export const cases: Case[] = [
     ["pattern", [unionMock, patternMock, Schema.string, Schema.any, Schema.unknown]],
     [() => {}, [Schema.callable, Schema.any, Schema.unknown]],
     [function () {}, [Schema.callable, Schema.any, Schema.unknown]],
+    [new Date(), [Schema.object, instanceOfMock, recordMock, Schema.any, Schema.unknown]]
 ];
 
 function valueToString(value: unknown): string {

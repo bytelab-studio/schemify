@@ -1,4 +1,5 @@
 export * from "./enum";
+export * from "./instanceOf";
 export * from "./list";
 export * from "./literal";
 export * from "./nested";
