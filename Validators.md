@@ -22,6 +22,7 @@ This document lists all available validators grouped by module.
     - [Schema.undef](#schemaundef)
     - [Schema.unknown](#schemaunknown)
 - [complex](#complex-module)
+    - [Schema.instanceOf](#schemainstanceof)
     - [Schema.list](#schemalist)
     - [Schema.literal](#schemaliteral)
     - [Schema.nested](#schemanested)
@@ -393,6 +394,19 @@ Inherits options from [Schema.raw](#schemaraw)
 This validator does not define any options.
 
 ## `complex` Module
+
+### `Schema.instanceOf`
+
+Validates that a value is an instance of a given class or constructor function.
+
+```typescript
+import * as Schema from "@bytelab.studio/schemify";
+
+const schema = Schema.instanceOf(Date);
+
+schema(new Date());
+schema(new Map()); // <-- throws SchemaError
+```
 
 ### `Schema.list`
 
