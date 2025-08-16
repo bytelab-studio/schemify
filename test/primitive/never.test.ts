@@ -8,13 +8,13 @@ describe("'never' validator", () => {
         });
 
         test("pass", () => {
-            expect(() => validator({}, new Schema.ValidatorContext())).not.throws();
+            expect(() => validator.validate({})).not.throws();
         });
 
         test("throw", () => {
-            expect(() => validator({
+            expect(() => validator.validate({
                 notExist: 1
-            }, new Schema.ValidatorContext())).throws();
+            })).throws();
         });
     });
 

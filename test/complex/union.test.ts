@@ -11,12 +11,15 @@ describe("'union' validator", () => {
         const validator = Schema.union([Schema.raw(() => {
             throw new Error("Not a SchemaError")
         })]);
-        expect(() => validator(0, new Schema.ValidatorContext())).throws("");
+        expect(() => validator.validate(0)).throws();
         try {
-            validator(0, new Schema.ValidatorContext());
+            validator.validate(0);
         } catch (e) {
             expect(e).not.instanceOf(Schema.SchemaError);
             return;
         }
+
+        // Should not reach this point
+        expect(false).toBe(true);
     });
 });

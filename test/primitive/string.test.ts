@@ -8,11 +8,11 @@ describe("'string' validator", () => {
         });
 
         test("throws", () => {
-            expect(() => validator("abc", new Schema.ValidatorContext())).throws();
+            expect(() => validator.validate("abc")).throws();
         });
 
         test("pass", () => {
-            expect(() => validator("abcdef", new Schema.ValidatorContext())).not.throws();
+            expect(() => validator.validate("abcdef")).not.throws();
         });
     });
 
@@ -22,11 +22,11 @@ describe("'string' validator", () => {
         });
 
         test("throws", () => {
-            expect(() => validator("abcdef", new Schema.ValidatorContext())).throws();
+            expect(() => validator.validate("abcdef")).throws();
         });
 
         test("pass", () => {
-            expect(() => validator("abc", new Schema.ValidatorContext())).not.throws();
+            expect(() => validator.validate("abc")).not.throws();
         });
     });
 });

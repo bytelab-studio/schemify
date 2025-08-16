@@ -14,9 +14,8 @@ describe("optional", () => {
                     optional: true
                 });
 
-                const context = new Schema.ValidatorContext();
-                expect(() => validator(undefined, context)).not.throws();
-                expect(validator(undefined, context)).toBe(undefined);
+                expect(() => validator.validate(undefined)).not.throws();
+                expect(validator.validate(undefined)).toBe(undefined);
             });
 
             if (validatorBox == Schema.undef) {
@@ -26,8 +25,7 @@ describe("optional", () => {
             test("throw", () => {
                 const validator = validatorBox();
 
-                const context = new Schema.ValidatorContext();
-                expect(() => validator(undefined, context)).throws();
+                expect(() => validator.validate(undefined)).throws();
             });
         });
     }

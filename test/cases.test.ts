@@ -64,8 +64,7 @@ function positiveTest(testString: any, validator: Schema.ValidatorFunction<Schem
     const key: string = valueToString(testString);
 
     test(`'${key}' -> pass`, () => {
-        const context = new Schema.ValidatorContext();
-        expect(() => validator(testString, context)).not.throws();
+        expect(() => validator.validate(testString)).not.throws();
     });
 }
 
@@ -73,8 +72,7 @@ function negativeTest(testString: any, validator: Schema.ValidatorFunction<Schem
     const key: string = valueToString(testString);
 
     test(`'${key}' -> throw`, () => {
-        const context = new Schema.ValidatorContext();
-        expect(() => validator(testString, context)).throws();
+        expect(() => validator.validate(testString)).throws();
     });
 }
 

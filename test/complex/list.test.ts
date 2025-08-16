@@ -8,11 +8,11 @@ describe("'list' validator", () => {
         });
 
         test("throws", () => {
-            expect(() => validator([1, 2, 3], new Schema.ValidatorContext())).throws();
+            expect(() => validator.validate([1, 2, 3])).throws();
         });
 
         test("pass", () => {
-            expect(() => validator([1, 2, 3, 4, 5], new Schema.ValidatorContext())).not.throws();
+            expect(() => validator.validate([1, 2, 3, 4, 5])).not.throws();
         });
     });
 
@@ -22,11 +22,11 @@ describe("'list' validator", () => {
         });
 
         test("throws", () => {
-            expect(() => validator([1, 2, 3, 4, 5, 6], new Schema.ValidatorContext())).throws();
+            expect(() => validator.validate([1, 2, 3, 4, 5, 6])).throws();
         });
 
         test("pass", () => {
-            expect(() => validator([1, 2, 3], new Schema.ValidatorContext())).not.throws();
+            expect(() => validator.validate([1, 2, 3])).not.throws();
         });
     });
 });

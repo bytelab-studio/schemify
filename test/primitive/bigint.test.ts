@@ -8,11 +8,11 @@ describe("'bigint' validator", () => {
         });
 
         test("throws", () => {
-            expect(() => validator(1n, new Schema.ValidatorContext())).throws();
+            expect(() => validator.validate(1n)).throws();
         });
 
         test("pass", () => {
-            expect(() => validator(6n, new Schema.ValidatorContext())).not.throws();
+            expect(() => validator.validate(6n)).not.throws();
         });
     });
 
@@ -22,11 +22,11 @@ describe("'bigint' validator", () => {
         });
 
         test("throws", () => {
-            expect(() => validator(6n, new Schema.ValidatorContext())).throws();
+            expect(() => validator.validate(6n)).throws();
         });
 
         test("pass", () => {
-            expect(() => validator(1n, new Schema.ValidatorContext())).not.throws();
+            expect(() => validator.validate(1n)).not.throws();
         });
     });
 });

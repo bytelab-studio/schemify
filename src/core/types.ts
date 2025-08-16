@@ -8,7 +8,13 @@ export type ValidatorReturn<Options extends RawOptions, TypeBase> =
     | (Options["nullable"] extends true ? null : never)
     | (Options["optional"] extends true ? undefined : never);
 
-export type ValidatorFunction<Options extends RawOptions, TypeBase> = (value: unknown, context: ValidatorContext) => ValidatorReturn<Options, TypeBase>;
+interface ValidatorDefinition<Options extends RawOptions, TypeBase> {
+    validate(value: unknown): ValidatorReturn<Options, TypeBase>;
+
+    tryValidate(value: unknown): value is ValidatorReturn<Options, TypeBase>;
+}
+
+export type ValidatorFunction<Options extends RawOptions, TypeBase> = ((value: unknown, context: ValidatorContext) => ValidatorReturn<Options, TypeBase>) & ValidatorDefinition<Options, TypeBase>;
 
 export type InferSchema<T> =
     // simple

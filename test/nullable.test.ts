@@ -14,9 +14,8 @@ describe("nullable", () => {
                     nullable: true
                 });
 
-                const context = new Schema.ValidatorContext();
-                expect(() => validator(null, context)).not.throws();
-                expect(validator(null, context)).toBe(null);
+                expect(() => validator.validate(null)).not.throws();
+                expect(validator.validate(null)).toBe(null);
             });
 
             if (validatorBox == Schema.nil) {

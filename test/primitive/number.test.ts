@@ -8,11 +8,11 @@ describe("'number' validator", () => {
         });
 
         test("throws", () => {
-            expect(() => validator(1, new Schema.ValidatorContext())).throws();
+            expect(() => validator.validate(1)).throws();
         });
 
         test("pass", () => {
-            expect(() => validator(6, new Schema.ValidatorContext())).not.throws();
+            expect(() => validator.validate(6)).not.throws();
         });
     });
 
@@ -22,11 +22,11 @@ describe("'number' validator", () => {
         });
 
         test("throws", () => {
-            expect(() => validator(6, new Schema.ValidatorContext())).throws();
+            expect(() => validator.validate(6)).throws();
         });
 
         test("pass", () => {
-            expect(() => validator(1, new Schema.ValidatorContext())).not.throws();
+            expect(() => validator.validate(1)).not.throws();
         });
     });
 });
