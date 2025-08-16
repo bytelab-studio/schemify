@@ -35,6 +35,7 @@
     ],
     "scripts": {
         "build": "tsup src/index.ts --format cjs,esm --dts",
+        "build:prod": "tsup src/index.ts --format cjs,esm --dts --minify",
         "dev": "tsup src/index.ts --watch",
         "clean": "rm -rf dist",
         "test": "vitest",
