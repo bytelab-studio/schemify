@@ -8,7 +8,7 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface ArrayOptions extends RawOptions {
+export interface ArrayOptions extends RawOptions {
     maxLength?: number;
     minLength?: number;
 }

@@ -9,7 +9,7 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface NestedOptions extends RawOptions {
+export interface NestedOptions extends RawOptions {
 
 }
 

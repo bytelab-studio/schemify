@@ -1,7 +1,7 @@
 import {isValidatorSymbol, raw, SchemaError, ValidatorContext, ValidatorFunction, ValidatorReturn} from "../core";
 import {string, StringOptions} from "../primitive"
 
-interface PatternOptions extends StringOptions {
+export interface PatternOptions extends StringOptions {
 
 }
 

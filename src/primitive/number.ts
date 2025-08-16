@@ -8,7 +8,7 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface NumberOptions extends RawOptions {
+export interface NumberOptions extends RawOptions {
     min?: number;
     max?: number;
 }

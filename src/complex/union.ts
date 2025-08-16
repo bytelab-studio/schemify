@@ -9,7 +9,7 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface UnionOptions extends RawOptions {
+export interface UnionOptions extends RawOptions {
 
 }
 

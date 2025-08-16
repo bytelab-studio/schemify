@@ -8,7 +8,7 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface BigIntOptions extends RawOptions {
+export interface BigIntOptions extends RawOptions {
     min?: bigint;
     max?: bigint;
 }

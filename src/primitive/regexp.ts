@@ -8,7 +8,7 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface RegexOptions extends RawOptions {
+export interface RegexOptions extends RawOptions {
 
 }
 

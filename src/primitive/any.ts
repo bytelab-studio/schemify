@@ -8,7 +8,7 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface AnyOptions extends RawOptions {
+export interface AnyOptions extends RawOptions {
 
 }
 

@@ -8,7 +8,7 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface UndefinedOptions extends RawOptions {
+export interface UndefinedOptions extends RawOptions {
 
 }
 

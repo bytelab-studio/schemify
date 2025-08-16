@@ -10,7 +10,7 @@ import {
 } from "../core";
 import {object, ObjectOptions} from "../primitive";
 
-interface RecordOptions extends ObjectOptions {
+export interface RecordOptions extends ObjectOptions {
 
 }
 

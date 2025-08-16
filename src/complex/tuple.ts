@@ -9,7 +9,7 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface TupleOptions extends RawOptions {
+export interface TupleOptions extends RawOptions {
 
 }
 

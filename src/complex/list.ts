@@ -9,7 +9,7 @@ import {
     ValidatorReturn
 } from "../core";
 
-interface ListOptions extends RawOptions {
+export interface ListOptions extends RawOptions {
     minLength?: number;
     maxLength?: number;
 }
