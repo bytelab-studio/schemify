@@ -16,22 +16,7 @@ export interface ArrayOptions extends RawOptions {
 export function array<Options extends ArrayOptions>(options?: Options): ValidatorFunction<Options, unknown[]> {
     options = options ?? {} as Options;
 
-    return raw((value: unknown, context: ValidatorContext): ValidatorReturn<Options, unknown[]> => {
-        if (value === null) {
-            if (options?.nullable) {
-                return null as ValidatorReturn<Options, unknown[]>;
-            }
-
-            throw new SchemaError("Value is null", context);
-        }
-        if (value === undefined) {
-            if (options?.optional) {
-                return undefined as ValidatorReturn<Options, unknown[]>;
-            }
-
-            throw new SchemaError("Value is undefined", context);
-        }
-
+    return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, unknown[]> => {
         if (typeof value != "object" || !Array.isArray(value)) {
             throw new SchemaError("Value is not an array", context);
         }
@@ -49,7 +34,7 @@ export function array<Options extends ArrayOptions>(options?: Options): Validato
         }
 
         return value;
-    });
+    }, options);
 }
 
 array[isValidatorSymbol] = true;

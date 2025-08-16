@@ -23,22 +23,7 @@ export function union<
         throw new SchemaError("Union must have at least one item", new ValidatorContext());
     }
 
-    return raw((value: unknown, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Items>[number]> => {
-        if (value === null) {
-            if (options?.nullable) {
-                return null as ValidatorReturn<Options, InferSchema<Items>[number]>;
-            }
-
-            throw new SchemaError("Value is null", context);
-        }
-        if (value === undefined) {
-            if (options?.optional) {
-                return undefined as ValidatorReturn<Options, InferSchema<Items>[number]>;
-            }
-
-            throw new SchemaError("Value is undefined", context);
-        }
-
+    return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Items>[number]> => {
         const errors: [string, SchemaError][] = [];
 
         for (const validator of items) {
@@ -57,7 +42,7 @@ export function union<
         const reasonText: string = errors.map(([name, error]) => `- ${name}: ${error.message}`).join("\n");
 
         throw new SchemaError("Value does not match any of the union types\n" + reasonText, context);
-    });
+    }, options);
 }
 
 union[isValidatorSymbol] = true;

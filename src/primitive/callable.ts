@@ -13,28 +13,13 @@ export interface CallableOptions extends RawOptions {
 }
 
 export function callable<Options extends CallableOptions>(options?: Options): ValidatorFunction<Options, Function> {
-    return raw((value: unknown, context: ValidatorContext): ValidatorReturn<Options, Function> => {
-        if (value === null) {
-            if (options?.nullable) {
-                return null as ValidatorReturn<Options, Function>;
-            }
-
-            throw new SchemaError("Value is null", context);
-        }
-        if (value === undefined) {
-            if (options?.optional) {
-                return undefined as ValidatorReturn<Options, Function>;
-            }
-
-            throw new SchemaError("Value is undefined", context);
-        }
-
+    return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, Function> => {
         if (typeof value != "function") {
             throw new SchemaError("Value is not a function", context);
         }
 
         return value;
-    });
+    }, options);
 }
 
 callable[isValidatorSymbol] = true;

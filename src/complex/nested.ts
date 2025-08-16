@@ -16,22 +16,7 @@ export interface NestedOptions extends RawOptions {
 export function nested<Schema extends Record<string, ValidatorFunction<RawOptions, unknown>>, Options extends NestedOptions>(schema: Schema, options?: Options): ValidatorFunction<Options, InferSchema<Schema>> {
     options = options ?? {} as Options;
 
-    return raw((value: unknown, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Schema>> => {
-        if (value === null) {
-            if (options?.nullable) {
-                return null as ValidatorReturn<Options, InferSchema<Schema>>;
-            }
-
-            throw new SchemaError("Value is null", context);
-        }
-        if (value === undefined) {
-            if (options?.optional) {
-                return undefined as ValidatorReturn<Options, InferSchema<Schema>>;
-            }
-
-            throw new SchemaError("Value is undefined", context);
-        }
-
+    return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Schema>> => {
         if (typeof value != "object" || Array.isArray(value)) {
             throw new SchemaError("Value is not an object", context);
         }
@@ -43,7 +28,7 @@ export function nested<Schema extends Record<string, ValidatorFunction<RawOption
         }
 
         return value as ValidatorReturn<Options, InferSchema<Schema>>;
-    });
+    }, options);
 }
 
 nested[isValidatorSymbol] = true;

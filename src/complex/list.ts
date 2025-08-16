@@ -17,22 +17,7 @@ export interface ListOptions extends RawOptions {
 export function list<Item extends ValidatorFunction<RawOptions, unknown>, Options extends ListOptions>(item: Item, options?: Options): ValidatorFunction<Options, Array<InferSchema<Item>>> {
     options = options ?? {} as Options;
 
-    return raw((value: unknown, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Item>[]> => {
-        if (value === null) {
-            if (options?.nullable) {
-                return null as ValidatorReturn<Options, InferSchema<Item>[]>;
-            }
-
-            throw new SchemaError("Value is null", context);
-        }
-        if (value === undefined) {
-            if (options?.optional) {
-                return undefined as ValidatorReturn<Options, InferSchema<Item>[]>;
-            }
-
-            throw new SchemaError("Value is undefined", context);
-        }
-
+    return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Item>[]> => {
         if (typeof value != "object" || !Array.isArray(value)) {
             throw new SchemaError("Value is not an array", context);
         }
@@ -56,7 +41,7 @@ export function list<Item extends ValidatorFunction<RawOptions, unknown>, Option
         }
 
         return value as ValidatorReturn<Options, InferSchema<Item>[]>;
-    });
+    }, options);
 }
 
 list[isValidatorSymbol] = true;

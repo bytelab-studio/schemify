@@ -20,28 +20,13 @@ export function instanceOf<
 >(constructor: Class, options?: Options): ValidatorFunction<Options, InstanceType<Class>> {
     options = options ?? {} as Options;
 
-    return raw((value: unknown, context: ValidatorContext): ValidatorReturn<Options, InstanceType<Class>> => {
-        if (value === null) {
-            if (options?.nullable) {
-                return null as ValidatorReturn<Options, InstanceType<Class>>;
-            }
-
-            throw new SchemaError("Value is null", context);
-        }
-        if (value === undefined) {
-            if (options?.optional) {
-                return undefined as ValidatorReturn<Options, InstanceType<Class>>;
-            }
-
-            throw new SchemaError("Value is undefined", context);
-        }
-
+    return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, InstanceType<Class>> => {
         if (typeof value != "object" || !(value instanceof constructor)) {
             throw new SchemaError(`Value is not a instance of '${constructor.name}'`, context);
         }
 
         return value as InstanceType<Class>;
-    });
+    }, options);
 }
 
 instanceOf[isValidatorSymbol] = true;

@@ -14,22 +14,7 @@ export interface BigIntOptions extends RawOptions {
 }
 
 export function bigint<Options extends BigIntOptions>(options?: Options): ValidatorFunction<Options, bigint> {
-    return raw((value: unknown, context: ValidatorContext): ValidatorReturn<Options, bigint> => {
-        if (value === null) {
-            if (options?.nullable) {
-                return null as ValidatorReturn<Options, bigint>;
-            }
-
-            throw new SchemaError("Value is null", context);
-        }
-        if (value === undefined) {
-            if (options?.optional) {
-                return undefined as ValidatorReturn<Options, bigint>;
-            }
-
-            throw new SchemaError("Value is undefined", context);
-        }
-
+    return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, bigint> => {
         if (typeof value != "bigint") {
             throw new SchemaError("Value is not a bigint", context);
         }
@@ -46,7 +31,7 @@ export function bigint<Options extends BigIntOptions>(options?: Options): Valida
         }
 
         return value;
-    });
+    }, options);
 }
 
 bigint[isValidatorSymbol] = true;

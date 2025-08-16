@@ -14,18 +14,12 @@ export interface UndefinedOptions extends RawOptions {
 
 export function undef<Options extends UndefinedOptions>(options?: Options): ValidatorFunction<Options, undefined> {
     options = options ?? {} as Options;
+    options.optional = true;
 
-    return raw((value: unknown, context: ValidatorContext): ValidatorReturn<Options, undefined> => {
-        if (options?.nullable) {
-            return null as ValidatorReturn<Options, undefined>;
-        }
-
-        if (value !== undefined) {
-            throw new SchemaError("Value is not undefined", context);
-        }
-
-        return value;
-    });
+    return raw((_: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, undefined> => {
+        // we can only throw here, because if the value is undefined, it would already be returned by `raw`
+        throw new SchemaError("Value is not undefined", context);
+    }, options);
 }
 
 undef[isValidatorSymbol] = true;

@@ -16,22 +16,7 @@ export interface StringOptions extends RawOptions {
 export function string<Options extends StringOptions>(options?: Options): ValidatorFunction<Options, string> {
     options = options ?? {} as Options;
 
-    return raw((value: unknown, context: ValidatorContext): ValidatorReturn<Options, string> => {
-        if (value === null) {
-            if (options.nullable) {
-                return null as ValidatorReturn<Options, string>;
-            }
-
-            throw new SchemaError("Value is null", context);
-        }
-        if (value === undefined) {
-            if (options.optional) {
-                return undefined as ValidatorReturn<Options, string>;
-            }
-
-            throw new SchemaError("Value is undefined", context);
-        }
-
+    return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, string> => {
         if (typeof value != "string") {
             throw new SchemaError("Value is not a string", context);
         }
@@ -49,7 +34,7 @@ export function string<Options extends StringOptions>(options?: Options): Valida
         }
 
         return value;
-    });
+    }, options);
 }
 
 string[isValidatorSymbol] = true;

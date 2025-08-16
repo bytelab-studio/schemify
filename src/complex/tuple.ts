@@ -19,22 +19,7 @@ export function tuple<
 >(items: Items, options?: Options): ValidatorFunction<Options, InferSchema<Items>> {
     options = options ?? {} as Options;
 
-    return raw((value: unknown, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Items>> => {
-        if (value === null) {
-            if (options?.nullable) {
-                return null as ValidatorReturn<Options, InferSchema<Items>>;
-            }
-
-            throw new SchemaError("Value is null", context);
-        }
-        if (value === undefined) {
-            if (options?.optional) {
-                return undefined as ValidatorReturn<Options, InferSchema<Items>>;
-            }
-
-            throw new SchemaError("Value is undefined", context);
-        }
-
+    return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Items>> => {
         if (typeof value != "object" || !Array.isArray(value)) {
             throw new SchemaError("Value is not an array", context);
         }
@@ -51,7 +36,7 @@ export function tuple<
         }
 
         return value as ValidatorReturn<Options, InferSchema<Items>>;
-    });
+    }, options);
 }
 
 tuple[isValidatorSymbol] = true;
