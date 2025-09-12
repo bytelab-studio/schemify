@@ -8,11 +8,11 @@ import {
     ValidatorReturn
 } from "../core";
 
-export interface UndefinedOptions extends RawOptions {
+export interface UndefOptions extends RawOptions {
 
 }
 
-export function undef<Options extends UndefinedOptions>(options?: Options): ValidatorFunction<Options, undefined> {
+export function undef<Options extends UndefOptions>(options?: Options): ValidatorFunction<Options, undefined> {
     options = options ?? {} as Options;
     options.optional = true;
 

@@ -1,4 +1,4 @@
-export * from "./enum";
+export * from "./oneOf";
 export * from "./instanceOf";
 export * from "./list";
 export * from "./literal";

@@ -1,4 +1,6 @@
 .idea
 coverage
 dist
+cache
 node_modules
+*.tgz
