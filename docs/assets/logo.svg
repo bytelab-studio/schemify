@@ -1,0 +1,32 @@
+<!-- Requires to have Monoton font installed or included in the webpage -->
+<svg id="mysvg" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px"
+     y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+
+    <linearGradient class="linearGradient" x1="0%" y1="0%" x2="0%" y2="100%"
+                    gradientTransform="translate(0.5,0.5) rotate(270) translate(-0.5,-0.5)"
+                    id="linearGradient226f5b46a3b8da24ea361194f4c06719">
+    <stop id="stop1" offset="0%" class="linearGradientColor1" stop-color="#cba6f7"></stop>
+        <stop id="stop2" offset="100%" class="linearGradientColor2" stop-color="#8839ef"></stop>
+  </linearGradient>
+
+    <radialGradient class="radialGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+    <stop offset="0%" class="radialGradientColor1" stop-color="#05a"></stop>
+        <stop offset="100%" class="radialGradientColor2" stop-color="#0a5"></stop>
+  </radialGradient>
+
+    <clipPath id="clip226f5b46a3b8da24ea361194f4c06719" class="clipPath">
+    <polygon fill="none" stroke="#dddddd" stroke-width="1" stroke-miterlimit="10"
+             points="29.287,100 0,70.711 0,29.287 29.287,0 70.711,0 100,29.287 100,70.711 70.711,100 "></polygon>
+  </clipPath>
+
+    <polygon fill="url(#linearGradient226f5b46a3b8da24ea361194f4c06719)" opacity="1" class="fill-color"
+             points="29.701,99 1,70.297 1,29.701 29.701,1 70.297,1 99,29.701 99,70.297 70.297,99 "
+             clip-path="url(#clip226f5b46a3b8da24ea361194f4c06719)"></polygon>
+
+    <polygon class="stroke-color" fill="none" stroke="#dddddd" stroke-width="0" stroke-miterlimit="10"
+             points="29.287,100 0,70.711 0,29.287 29.287,0 70.711,0 100,29.287 100,70.711 70.711,100 "
+             clip-path="url(#clip226f5b46a3b8da24ea361194f4c06719)"></polygon>
+
+    <text x="50" y="52.5" font-family="'Monoton', cursive" font-size="80" fill="#ffffff" text-anchor="middle"
+          dominant-baseline="central">S</text>
+</svg>

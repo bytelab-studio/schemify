@@ -40,6 +40,9 @@ function generateModuleItems(module: string): SidebarItem[] {
 export default defineConfig({
     title: "Schemify",
     description: "A VitePress Site",
+    head: [
+        ["link", { rel: "icon", href: "/assets/logo.png", type: "image/png", sizes: "any" }],
+    ],
     themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         search: {
@@ -116,6 +119,11 @@ export default defineConfig({
                 ]
             }
         ],
+
+        footer: {
+            message: `<a href="https://bytelab.studio/imprint" target="_blank">Imprint</a> <a href="https://bytelab.studio/privacy" target="_blank">Privacy Policy</a>`,
+            copyright: `Copyright (c) ${new Date().getFullYear()} Bytelab Studio`
+        },
 
         socialLinks: [
             {

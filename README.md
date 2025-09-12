@@ -1,5 +1,8 @@
-[![codecov](https://codecov.io/github/bytelab-studio/schemify/branch/master/graph/badge.svg?token=K7Jq4afV6g)](https://codecov.io/github/bytelab-studio/schemify/tree/master)
+<div align="center" style="padding: 1rem 0 ">
+    <img width="150" height="150" src="./docs/assets/logo.png"/>
+</div>
 
+[![codecov](https://codecov.io/github/bytelab-studio/schemify/branch/master/graph/badge.svg?token=K7Jq4afV6g)](https://codecov.io/github/bytelab-studio/schemify/tree/master)
 # Schemify
 
 **Schemify** is a modular, type-safe, and tree-shakable schema validation library designed for JavaScript and
@@ -40,7 +43,7 @@ schema({name: "Bob", age: 15});   // ❌ throws
 
 ## 📚 Documentation
 
-See [`docs/validators.md`](Validators.md) for a list of all built-in validators grouped by module.
+See [Documentation](https://schemify.bytelab.studio/) for a list of all built-in validators grouped by module.
 
 ## 🧪 Testing
 

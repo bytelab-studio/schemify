@@ -6,6 +6,8 @@ hero:
   name: "Schemify"
   text: "Tree-shakable TypeScript schema validation"
   tagline: "A lean, modern alternative to Zod for validation and type-safety."
+  image:
+    src: /assets/logo.png
   actions:
     - theme: brand
       text: Get Started
