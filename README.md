@@ -1,5 +1,5 @@
 <div align="center" style="padding: 1rem 0 ">
-    <img width="150" height="150" src="./docs/assets/logo.png"/>
+    <img width="150" height="150" src="docs/public/assets/logo.png"/>
 </div>
 
 [![codecov](https://codecov.io/github/bytelab-studio/schemify/branch/master/graph/badge.svg?token=K7Jq4afV6g)](https://codecov.io/github/bytelab-studio/schemify/tree/master)
