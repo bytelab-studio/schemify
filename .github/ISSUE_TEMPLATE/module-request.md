@@ -5,14 +5,14 @@ title: "[Module] <module name>"
 labels: [enhancement, module]
 ---
 
-## Module Name
+## 📦 Module
 What should the module be called?  
 (e.g., `core`, `complex`, `primitive`)
 
-## Purpose
+## 💡 Purpose
 What domain or problem space does this module solve/validate?
 
-## Core Validators
+## ⚙️ Validators
 List the validators that should be included in this module.
 - [ ] `ipv4`
 - [ ] `ipv6`

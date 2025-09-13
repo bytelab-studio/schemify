@@ -5,13 +5,13 @@ title: "[Bug] <short description>"
 labels: [bug]
 ---
 
-## Description
+## 📋 Description
 A clear and concise description of the bug.
 
-## Expected Behavior
+## 🟩 Expected Behavior
 What did you expect to happen?
 
-## Actual Behavior
+## 🟥 Actual Behavior
 What actually happened?
 
 ## Validator Behavior (Optional)
