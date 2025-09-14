@@ -16,7 +16,7 @@ Validates a **ISO 8601** date string. By default using the `YYYY-MM-DD` pattern.
 | `MM`     | 01 - 12     | Month                                                                      |
 | `Www`    | 01 - 53     | Week of the Year                                                           |
 | `D`      | 1 - 7       | Day of the Week. `1` is Monday, `7` is Sunday                              |
-| `DD`     | 1 - 7       | Day of the Month. Validates not if the month has `31` or `30` or `28` days |
+| `DD`     | 01 - 31     | Day of the Month. Validates not if the month has `31` or `30` or `28` days |
 | `DDD`    | 001 - 366   | Day of the Year. Validates not if the year is a leap year                  |
 | `-`      | &#8211;     | Allowed separator between two variable                                     |
 
