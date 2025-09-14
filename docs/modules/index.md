@@ -28,3 +28,5 @@ All modules follow the same principle:
 - [**Complex**](/modules/complex/) \
   Focuses on higher–level validators that combine or wrap primitives.
   Useful for structured data like arrays, objects, or custom constraints.
+- [**Datetime**](/modules/datetime/) \
+  Focuses on **ISO 8601** date and time validators.

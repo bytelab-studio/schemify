@@ -117,6 +117,13 @@ export default defineConfig({
                     { text: 'Schema.tuple', link: '/modules/complex/tuple' },
                     { text: 'Schema.union', link: '/modules/complex/union' }
                 ]
+            },
+            {
+                text: "Datetime",
+                link: "/modules/datetime/",
+                items: [
+                    { text: 'Schema.dateISO', link: '/modules/datetime/dateISO' }
+                ]
             }
         ],
 
