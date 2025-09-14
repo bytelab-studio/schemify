@@ -15,3 +15,7 @@ component_management:
       name: Complex
       paths:
         - src/complex/
+    - component_id: module_datetime
+      name: Datetime
+      paths:
+        - src/datetime/
