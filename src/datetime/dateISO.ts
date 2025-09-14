@@ -9,7 +9,7 @@ import {
 import {pattern, PatternOptions} from "../complex";
 import {SimpleStringParser} from "./parser";
 
-function extractPattern(format: string): RegExp {
+function extractPattern(format: string, appendStartEndFlag: boolean = true): RegExp {
     const extracted: string[] = [];
     const parser: SimpleStringParser = new SimpleStringParser(format);
 
@@ -89,7 +89,9 @@ function extractPattern(format: string): RegExp {
 
     const pattern: string = extracted.join("");
 
-    return new RegExp(`^${pattern}$`);
+    return appendStartEndFlag
+        ? new RegExp(`^${pattern}$`)
+        : new RegExp(`${pattern}`);
 }
 
 export interface DateISOOptions extends PatternOptions {
@@ -109,4 +111,9 @@ export function dateISO<Options extends DateISOOptions>(options?: DateISOOptions
     }, options);
 }
 
+export declare namespace dateISO {
+    export function extractPattern(format: string, appendStartEndFlag?: boolean): RegExp;
+}
+
+dateISO.extractPattern = extractPattern;
 dateISO[isValidatorSymbol] = true;

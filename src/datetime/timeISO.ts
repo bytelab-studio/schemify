@@ -9,7 +9,7 @@ import {
 import {pattern, PatternOptions} from "../complex";
 import {SimpleStringParser} from "./parser";
 
-function extractPattern(format: string): RegExp {
+function extractPattern(format: string, appendStartEndFlag: boolean = true): RegExp {
     const extracted: string[] = [];
     const parser: SimpleStringParser = new SimpleStringParser(format);
 
@@ -64,7 +64,9 @@ function extractPattern(format: string): RegExp {
 
     const pattern: string = extracted.join("");
 
-    return new RegExp(`^${pattern}$`);
+    return appendStartEndFlag
+        ? new RegExp(`^${pattern}$`)
+        : new RegExp(`${pattern}`);
 }
 
 export interface TimeISOOptions extends PatternOptions {
@@ -76,6 +78,7 @@ export function timeISO<Options extends TimeISOOptions>(options?: Options): Vali
 
     const regexp: RegExp = options.format
         ? extractPattern(options.format)
+        // hh:mm:ss format
         : /^([0-1][0-9]|2[0-4]):([0-5][0-9]):([0-5][0-9]|60)$/;
 
     return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, string> => {
@@ -83,4 +86,9 @@ export function timeISO<Options extends TimeISOOptions>(options?: Options): Vali
     }, options);
 }
 
+export declare namespace timeISO {
+    export function extractPattern(format: string, appendStartEndFlag?: boolean): RegExp;
+}
+
+timeISO.extractPattern = extractPattern;
 timeISO[isValidatorSymbol] = true;
