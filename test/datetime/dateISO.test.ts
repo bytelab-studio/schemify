@@ -5,7 +5,7 @@ describe("'dateISO' validator", () => {
     describe("format parser", () => {
         test("YYYY", () => {
             const validator = Schema.dateISO({
-                pattern: "YYYY"
+                format: "YYYY"
             });
 
             for (let i: number = 0; i < 10_000; i++) {
@@ -18,7 +18,7 @@ describe("'dateISO' validator", () => {
 
         test("-YYYY", () => {
             const validator = Schema.dateISO({
-                pattern: "-YYYY"
+                format: "-YYYY"
             });
 
             for (let i: number = 9999; i >= 0; i--) {
@@ -31,7 +31,7 @@ describe("'dateISO' validator", () => {
 
         test("+YYYY", () => {
             const validator = Schema.dateISO({
-                pattern: "+YYYY"
+                format: "+YYYY"
             });
 
             expect(() => validator.validate("1234")).not.throws();
@@ -40,16 +40,16 @@ describe("'dateISO' validator", () => {
 
         test("Wrong YYYY", () => {
             expect(() => Schema.dateISO({
-                pattern: "YYY"
+                format: "YYY"
             })).throws();
             expect(() => Schema.dateISO({
-                pattern: "YYYYY"
+                format: "YYYYY"
             })).throws();
         });
 
         test("MM", () => {
             const validator = Schema.dateISO({
-                pattern: "MM"
+                format: "MM"
             });
 
             for (let i: number = 1; i < 13; i++) {
@@ -60,14 +60,14 @@ describe("'dateISO' validator", () => {
 
         test("Wrong MM", () => {
             expect(() => Schema.dateISO({
-                pattern: "M"
+                format: "M"
             })).throws();
         });
 
 
         test("D", () => {
             const validator = Schema.dateISO({
-                pattern: "D"
+                format: "D"
             });
 
             for (let i: number = 1; i < 8; i++) {
@@ -78,7 +78,7 @@ describe("'dateISO' validator", () => {
 
         test("DD", () => {
             const validator = Schema.dateISO({
-                pattern: "DD"
+                format: "DD"
             });
 
             for (let i: number = 1; i < 32; i++) {
@@ -89,7 +89,7 @@ describe("'dateISO' validator", () => {
 
         test("DDD", () => {
             const validator = Schema.dateISO({
-                pattern: "DDD"
+                format: "DDD"
             });
 
             for (let i: number = 1; i < 367; i++) {
@@ -100,7 +100,7 @@ describe("'dateISO' validator", () => {
 
         test("Www", () => {
             const validator = Schema.dateISO({
-                pattern: "Www"
+                format: "Www"
             });
 
             for (let i: number = 1; i < 54; i++) {
@@ -111,13 +111,13 @@ describe("'dateISO' validator", () => {
 
         test("Wrong Www", () => {
             expect(() => Schema.dateISO({
-                pattern: "W"
+                format: "W"
             })).throws();
         });
 
         test("'-'", () => {
             const validator = Schema.dateISO({
-                pattern: "YYYY-"
+                format: "YYYY-"
             });
 
             expect(() => validator.validate("0000-")).not.throws();
@@ -125,23 +125,23 @@ describe("'dateISO' validator", () => {
 
         test("Double dashes", () => {
             expect(() => Schema.dateISO({
-                pattern: "YYYY--"
+                format: "YYYY--"
             })).throws();
         });
 
         test("Invalid characters", () => {
             expect(() => Schema.dateISO({
-                pattern: "abcd"
+                format: "abcd"
             })).throws();
         });
 
         test("'+' or '-' must follows YYYY", () => {
             expect(() => Schema.dateISO({
-                pattern: "-MM"
+                format: "-MM"
             })).throws();
 
             expect(() => Schema.dateISO({
-                pattern: "+MM"
+                format: "+MM"
             })).throws();
         });
     });
@@ -154,56 +154,56 @@ describe("'dateISO' validator", () => {
 
         test("YYYYMMDD", () => {
             const validator = Schema.dateISO({
-                pattern: "YYYYMMDD"
+                format: "YYYYMMDD"
             });
             expect(() => validator.validate("20250914")).not.throws();
         });
 
         test("YYYY-MM", () => {
             const validator = Schema.dateISO({
-                pattern: "YYYY-MM"
+                format: "YYYY-MM"
             });
             expect(() => validator.validate("2025-09")).not.throws();
         });
 
         test("YYYY-Www", () => {
             const validator = Schema.dateISO({
-                pattern: "YYYY-Www"
+                format: "YYYY-Www"
             });
             expect(() => validator.validate("2025-W30")).not.throws();
         });
 
         test("YYYYWww", () => {
             const validator = Schema.dateISO({
-                pattern: "YYYYWww"
+                format: "YYYYWww"
             });
             expect(() => validator.validate("2025W30")).not.throws();
         });
 
         test("YYYYWww-D", () => {
             const validator = Schema.dateISO({
-                pattern: "YYYYWww-D"
+                format: "YYYYWww-D"
             });
             expect(() => validator.validate("2025W30-7")).not.throws();
         });
 
         test("YYYYWwwD", () => {
             const validator = Schema.dateISO({
-                pattern: "YYYYWwwD"
+                format: "YYYYWwwD"
             });
             expect(() => validator.validate("2025W307")).not.throws();
         });
 
         test("YYYY-DDD", () => {
             const validator = Schema.dateISO({
-                pattern: "YYYY-DDD"
+                format: "YYYY-DDD"
             });
             expect(() => validator.validate("2025-251")).not.throws();
         });
 
         test("YYYYDDD", () => {
             const validator = Schema.dateISO({
-                pattern: "YYYYDDD"
+                format: "YYYYDDD"
             });
             expect(() => validator.validate("2025251")).not.throws();
         });
