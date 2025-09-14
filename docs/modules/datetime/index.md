@@ -9,3 +9,4 @@ The **datetime** module contains validators for **ISO 8601** date and time strin
 ## Validators
 
 - [`Schemify.dateISO`](/modules/datetime/dateISO)
+- [`Schemify.timeISO`](/modules/datetime/timeISO)

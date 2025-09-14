@@ -122,7 +122,8 @@ export default defineConfig({
                 text: "Datetime",
                 link: "/modules/datetime/",
                 items: [
-                    { text: 'Schema.dateISO', link: '/modules/datetime/dateISO' }
+                    { text: 'Schema.dateISO', link: '/modules/datetime/dateISO' },
+                    { text: 'Schema.timeISO', link: '/modules/datetime/timeISO' }
                 ]
             }
         ],

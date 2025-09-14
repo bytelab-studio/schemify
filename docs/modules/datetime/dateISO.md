@@ -6,7 +6,7 @@ title: dateISO
 
 ## Description
 
-Validates a **ISO 8601** date string. By default using the `YYYY-MM-DD` pattern.
+Validates a **ISO 8601** date string. By default using the `YYYY-MM-DD` format.
 
 ### Format variables
 
@@ -26,6 +26,7 @@ Validates a **ISO 8601** date string. By default using the `YYYY-MM-DD` pattern.
 import * as Schema from "@bytelab.studio/schemify";
 
 const schema = Schema.dateISO();
+
 schema.validate("{{ new Date().getFullYear() }}-{{ new Date().getMonth() + 1 }}-{{ new Date().getDate() }}");
 ```
 
@@ -35,14 +36,15 @@ import * as Schema from "@bytelab.studio/schemify";
 const schema = Schema.dateISO({
     format: "YYYYMMDD"
 });
+
 schema.validate("{{ new Date().getFullYear() }}{{ new Date().getMonth() + 1 }}{{ new Date().getDate() }}");
 ```
 
 ## Options
 
-| Options  | Type     | Default      | Description                           |
-|----------|----------|--------------|---------------------------------------|
-| `format` | `string` | `YYYY-MM-DD` | A **ISO 8601** compatible date format |
+| Options  | Type     | Default        | Description                           |
+|----------|----------|----------------|---------------------------------------|
+| `format` | `string` | `"YYYY-MM-DD"` | A **ISO 8601** compatible date format |
 
 ### Definition
 
