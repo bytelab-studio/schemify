@@ -11,6 +11,7 @@ import {
 export interface NumberOptions extends RawOptions {
     min?: number;
     max?: number;
+    disallowInfinity?: boolean;
 }
 
 export function number<Options extends NumberOptions>(options?: Options): ValidatorFunction<Options, number> {
@@ -19,6 +20,12 @@ export function number<Options extends NumberOptions>(options?: Options): Valida
     return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, number> => {
         if (typeof value != "number") {
             throw new SchemaError("Value is not a number", context);
+        }
+
+        if (options.disallowInfinity) {
+            if (!Number.isFinite(value) && !Number.isNaN(value)) {
+                throw new SchemaError("Value is either Infinity or -Infinity", context);
+            }
         }
 
         if (options.min !== undefined) {
