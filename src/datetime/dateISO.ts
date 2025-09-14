@@ -1,4 +1,11 @@
-import {isValidatorSymbol, raw, SchemaError, ValidatorContext, ValidatorFunction, ValidatorReturn} from "../core";
+import {
+    isValidatorSymbol,
+    raw,
+    SchemaError,
+    ValidatorContext,
+    ValidatorFunction,
+    ValidatorReturn
+} from "../core";
 import {pattern, PatternOptions} from "../complex";
 import {SimpleStringParser} from "./parser";
 
@@ -92,13 +99,13 @@ export interface DateISOOptions extends PatternOptions {
 export function dateISO<Options extends DateISOOptions>(options?: DateISOOptions): ValidatorFunction<Options, string> {
     options = options ?? {} as Options;
 
-    const patter: RegExp = options.format
+    const regexp: RegExp = options.format
         ? extractPattern(options.format)
         // YYYY-MM-DD format
         : /^([+-]?[0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
 
     return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, string> => {
-        return pattern(patter, options)(value, context);
+        return pattern(regexp, options)(value, context);
     }, options);
 }
 
