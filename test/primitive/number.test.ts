@@ -29,4 +29,18 @@ describe("'number' validator", () => {
             expect(() => validator.validate(1)).not.throws();
         });
     });
+
+    describe("disallowNaN option", () => {
+        const validator = Schema.number({
+            disallowNaN: true
+        });
+
+        test("throws", () => {
+            expect(() => validator.validate(NaN)).throws();
+        });
+
+        test("pass", () => {
+            expect(() => validator.validate(123)).not.throws();
+        });
+    });
 });
