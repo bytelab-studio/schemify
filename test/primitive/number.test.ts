@@ -29,4 +29,44 @@ describe("'number' validator", () => {
             expect(() => validator.validate(1)).not.throws();
         });
     });
+
+    describe("disallowInfinity option", () => {
+        const validator = Schema.number({
+            disallowInfinity: true
+        });
+
+        describe("+Infinity", () => {
+            test("throws", () => {
+                expect(() => validator.validate(Infinity)).throws();
+            });
+
+            test("pass", () => {
+                expect(() => validator.validate(123)).not.throws();
+            });
+        });
+
+        describe("-Infinity", () => {
+            test("throws", () => {
+                expect(() => validator.validate(-Infinity)).throws();
+            });
+
+            test("pass", () => {
+                expect(() => validator.validate(NaN)).not.throws();
+            });
+        });
+    });
+    
+    describe("disallowNaN option", () => {
+        const validator = Schema.number({
+            disallowNaN: true
+        });
+
+        test("throws", () => {
+            expect(() => validator.validate(NaN)).throws();
+        });
+
+        test("pass", () => {
+            expect(() => validator.validate(123)).not.throws();
+        });
+    });
 });

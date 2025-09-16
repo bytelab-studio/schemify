@@ -15,3 +15,18 @@ component_management:
       name: Complex
       paths:
         - src/complex/
+    - component_id: module_datetime
+      name: Datetime
+      paths:
+        - src/datetime/
+
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+        threshold: 1%
+        informational: false
+    patch:
+      default:
+        informational: true
