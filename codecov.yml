@@ -19,3 +19,14 @@ component_management:
       name: Datetime
       paths:
         - src/datetime/
+
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+        threshold: 1%
+        informational: false
+    patch:
+      default:
+        informational: true
