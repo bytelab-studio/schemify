@@ -50,7 +50,7 @@ schema.validate("{{ new Date().getFullYear() }}{{ new Date().getMonth() + 1 }}{{
 
 ```ts
 export interface DateISOOptions extends PatternOptions {
-
+    format?: string;
 }
 ```
 
