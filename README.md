@@ -3,6 +3,11 @@
 </div>
 
 [![codecov](https://codecov.io/github/bytelab-studio/schemify/branch/master/graph/badge.svg?token=K7Jq4afV6g)](https://codecov.io/github/bytelab-studio/schemify/tree/master)
+![NPM Version](https://img.shields.io/npm/v/%40bytelab.studio%2Fschemify)
+![NPM Version](https://img.shields.io/npm/l/%40bytelab.studio%2Fschemify)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/bytelab-studio/schemify/ci.yml?label=CI)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/bytelab-studio/schemify/cd.yml?label=CD)
+
 # Schemify
 
 **Schemify** is a modular, type-safe, and tree-shakable schema validation library designed for JavaScript and
