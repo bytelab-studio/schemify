@@ -27,6 +27,7 @@ schema.validate(NaN);
 | `min`              | `number`  | `undefined` | Minimum allowed value.                              |
 | `max`              | `number`  | `undefined` | Maximum allowed value.                              |
 | `disallowInfinity` | `boolean` | `false`     | Handles `Infinity` and `-Infinity` as faulty values |
+| `disallowNaN`      | `boolean` | `false`     | Handles `NaN` as a faulty value.                    |
 
 ### Definition
 
@@ -35,6 +36,7 @@ export interface NumberOptions extends RawOptions {
     min?: number;
     max?: number;
     disallowInfinity?: boolean;
+    disallowNaN?: boolean;
 }
 ```
 
