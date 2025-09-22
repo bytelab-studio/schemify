@@ -11,7 +11,7 @@ import {
 export function never(): ValidatorFunction<{}, never> {
     const validator: ValidatorFunction<{}, never> = ((_: unknown, context: ValidatorContext): ValidatorReturn<{}, never> => {
         for (const plug of pluginTools.getRuntimePlugins()) {
-            pluginTools.executePlugin("runtime", plug, validator as ValidatorFunction<{}, never>);
+            pluginTools.executeRuntimePlugin(plug, validator as ValidatorFunction<{}, never>);
         }
 
         // Validators like Schema.nested pass undefined even when the value doesn't exist.
