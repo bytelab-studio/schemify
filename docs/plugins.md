@@ -10,11 +10,17 @@ stage** and/or **runtime**.
 
 ## What is a plugin?
 
-A plugin is a small, reusable piece of logic that can enhance validators. Key points:
+A plugin in Schemify is a **self-contained observer** that can inspect and interact with a validator or its AST during
+schema creation or validation. Plugins can:
 
-- Plugins can act at runtime during validation (runtime plugins).
-- Plugins can store metadata on a validator via a private symbol.
-- AST plugins are activated via a factory function.
+- Collect metadata from validators for documentation or tooling purposes (e.g., OpenAPI generation).
+- Perform additional validation or logging without altering the original validator.
+- Store information via the plugin context.
+
+:::info
+Plugins are **isolated**. They cannot inject properties or modify the validator itself. Their effect is limited to
+observing, reporting, or storing metadata.
+:::
 
 ### Example Use Cases
 
@@ -65,7 +71,7 @@ const validator = Schema.plugin(Schema.nested({
 }), MyPlugin());
 ```
 
-:::info
+:::warning
 Functions can also be activated by passing a `PluginOptions` object as parameter. This is **not** recommended as
 standard procedure, because of leaking type guards it is very error-prone and vulnerable to plugin name misspelling.
 
@@ -173,7 +179,7 @@ const [metadata, MyPlugin] = Schema.pluginTools.registerPlugin({
             this.setData(metadata, validator, "called", 1);
             return;
         }
-        
+
         const called: number = this.getData(metadata, validator, "called");
         this.setData(metadata, validator, "called", called + 1);
     }
