@@ -9,7 +9,7 @@ interface ValidatorPluginDefinition<Options extends RawOptions, TypeBase> extend
 
 export interface SchemifyPlugin<Arguments extends any[]> {
     name: string;
-    usePlugin?: (this: SchemifyPluginContext, root: ValidatorFunction<RawOptions, unknown>, ...args: Arguments) => void;
+    onPlugin?: (this: SchemifyPluginContext, root: ValidatorFunction<RawOptions, unknown>, ...args: Arguments) => void;
     onValidation?: (this: SchemifyPluginContext, validator: ValidatorFunction<RawOptions, unknown>) => void;
 }
 
@@ -49,7 +49,7 @@ export function registerPlugin<const Arguments extends any[]>(definition: Schemi
 }
 
 export function getASTPlugin(name: string): SchemifyPlugin<any[]> | null {
-    if (!(name in pluginRegistry) || !pluginRegistry[name].usePlugin) {
+    if (!(name in pluginRegistry) || !pluginRegistry[name].onPlugin) {
         return null;
     }
 
@@ -85,10 +85,11 @@ export function plugin<T extends ValidatorFunction<RawOptions, unknown>>(validat
     for (const option of plugins) {
         const plugin: SchemifyPlugin<any[]> | null = getASTPlugin(option.name);
         if (!plugin) {
+            console.warn(`[schemify] Unknown plugin: ${option.name}`)
             continue;
         }
 
-        plugin.usePlugin!.call({
+        plugin.onPlugin!.call({
             hasData,
             setData,
             getData
