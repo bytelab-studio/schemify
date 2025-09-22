@@ -7,7 +7,7 @@ const PLUGIN_DEFINITION: Schema.pluginTools.SchemifyPlugin<[]> = {
     name: PLUGIN_NAME,
     onValidation() {
     },
-    usePlugin() {
+    onPlugin() {
     }
 }
 
@@ -36,7 +36,7 @@ describe("plugin system", () => {
     test("data containers", () => {
         const PLUGIN_DEFINITION: Schema.pluginTools.SchemifyPlugin<[]> = {
             name: "test-data-containers",
-            usePlugin(validator) {
+            onPlugin(validator) {
                 expect(this.hasData(PLUGIN_SYMBOL, validator, "test-data")).toBe(false);
                 expect(this.getData(PLUGIN_SYMBOL, validator, "test-data")).toBe(null);
                 this.setData(PLUGIN_SYMBOL, validator, "test-data", 123)
@@ -45,7 +45,7 @@ describe("plugin system", () => {
             }
         }
         const [PLUGIN_SYMBOL, ACTIVATOR] = Schema.pluginTools.registerPlugin(PLUGIN_DEFINITION);
-        using spy = vi.spyOn(PLUGIN_DEFINITION, "usePlugin");
+        using spy = vi.spyOn(PLUGIN_DEFINITION, "onPlugin");
 
         Schema.plugin(Schema.any(), ACTIVATOR());
 
@@ -57,7 +57,7 @@ describe("plugin system", () => {
     });
 
     test("'plugin' executes plugins", () => {
-        using spy = vi.spyOn(PLUGIN_DEFINITION, "usePlugin");
+        using spy = vi.spyOn(PLUGIN_DEFINITION, "onPlugin");
 
         Schema.plugin(Schema.any(), PLUGIN_ACTIVATOR());
 
@@ -67,7 +67,7 @@ describe("plugin system", () => {
     });
 
     test("'plugin' with empty array executes no plugins", () => {
-        using spy = vi.spyOn(PLUGIN_DEFINITION, "usePlugin");
+        using spy = vi.spyOn(PLUGIN_DEFINITION, "onPlugin");
 
         Schema.plugin(Schema.any());
 
