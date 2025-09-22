@@ -1,6 +1,7 @@
 import type {ValidatorFunction, ValidatorReturn} from "./types";
 import {isValidatorSymbol} from "./types";
 import {SchemaError, ValidatorContext} from "./utils";
+import * as plugin from "./plugin";
 
 export interface RawOptions {
     nullable?: boolean;
@@ -29,6 +30,10 @@ export function raw<Options extends RawOptions, TypeBase>(cb: (value: NonNullabl
     options = options ?? {} as Options;
 
     const validator: ValidatorFunction<Options, TypeBase> = ((value: unknown, context: ValidatorContext): ValidatorReturn<Options, TypeBase> => {
+        for (const plug of plugin.getRuntimePlugins()) {
+            plugin.executePlugin("runtime", plug, cb as ValidatorFunction<Options, TypeBase>);
+        }
+
         if (value === null) {
             if (options?.nullable) {
                 return null as ValidatorReturn<Options, TypeBase>;

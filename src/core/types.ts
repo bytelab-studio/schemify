@@ -8,7 +8,7 @@ export type ValidatorReturn<Options extends RawOptions, TypeBase> =
     | (Options["nullable"] extends true ? null : never)
     | (Options["optional"] extends true ? undefined : never);
 
-interface ValidatorDefinition<Options extends RawOptions, TypeBase> {
+export interface ValidatorDefinition<Options extends RawOptions, TypeBase> {
     validate(value: unknown): ValidatorReturn<Options, TypeBase>;
 
     tryValidate(value: unknown): value is ValidatorReturn<Options, TypeBase>;
