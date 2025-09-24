@@ -24,4 +24,5 @@ export function literal<Type extends LiteralType, Options extends LiteralOptions
     }, literal, options);
 }
 
+literal.module = "complex";
 literal[isValidatorSymbol] = true;

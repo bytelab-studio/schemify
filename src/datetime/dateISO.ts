@@ -115,5 +115,6 @@ export declare namespace dateISO {
     export function extractPattern(format: string, appendStartEndFlag?: boolean): RegExp;
 }
 
+dateISO.module = "datetime";
 dateISO.extractPattern = extractPattern;
 dateISO[isValidatorSymbol] = true;

@@ -58,4 +58,5 @@ export function raw<Options extends RawOptions, TypeBase>(cb: (value: NonNullabl
     return validator;
 }
 
+raw.module = "core";
 raw[isValidatorSymbol] = true;

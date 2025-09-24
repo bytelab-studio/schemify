@@ -22,6 +22,7 @@ export type UnknownValidatorFunction = ValidatorFunction<RawOptions, unknown>;
 
 export type ValidatorConstructor = ((...args: any[]) => UnknownValidatorFunction) & {
     name: string;
+    module: string;
 };
 
 export type InferSchema<T> =

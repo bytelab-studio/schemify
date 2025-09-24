@@ -27,6 +27,7 @@ export function oneOf<
     }, oneOf, options);
 }
 
+oneOf.module = "complex";
 oneOf[isValidatorSymbol] = true;
 
 export declare namespace oneOf {

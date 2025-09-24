@@ -36,4 +36,5 @@ export function record<
     }, record, options);
 }
 
+record.module = "complex";
 record[isValidatorSymbol] = true;

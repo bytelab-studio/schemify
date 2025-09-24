@@ -24,4 +24,5 @@ export function regexp<Options extends RegexOptions>(options?: Options): Validat
     }, regexp, options);
 }
 
+regexp.module = "primitive";
 regexp[isValidatorSymbol] = true;

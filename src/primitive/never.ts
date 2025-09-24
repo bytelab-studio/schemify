@@ -27,4 +27,5 @@ export function never(): ValidatorFunction<{}, never> {
     return validator;
 }
 
+never.module = "primitive";
 never[isValidatorSymbol] = true;

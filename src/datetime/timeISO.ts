@@ -90,5 +90,6 @@ export declare namespace timeISO {
     export function extractPattern(format: string, appendStartEndFlag?: boolean): RegExp;
 }
 
+timeISO.module = "datetime";
 timeISO.extractPattern = extractPattern;
 timeISO[isValidatorSymbol] = true;

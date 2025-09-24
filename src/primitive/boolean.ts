@@ -24,4 +24,5 @@ export function boolean<Options extends BooleanOptions>(options?: Options): Vali
     }, boolean, options);
 }
 
+boolean.module = "primitive";
 boolean[isValidatorSymbol] = true;

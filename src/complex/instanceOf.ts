@@ -29,4 +29,5 @@ export function instanceOf<
     }, instanceOf, options);
 }
 
+instanceOf.module = "complex";
 instanceOf[isValidatorSymbol] = true;

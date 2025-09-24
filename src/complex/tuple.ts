@@ -40,4 +40,5 @@ export function tuple<
     }, tuple, options);
 }
 
+tuple.module = "complex";
 tuple[isValidatorSymbol] = true;

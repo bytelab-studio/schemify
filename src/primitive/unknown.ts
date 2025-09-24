@@ -18,4 +18,5 @@ export function unknown<Options extends UnknownOptions>(options?: Options): Vali
     }, unknown, options);
 }
 
+unknown.module = "primitive";
 unknown[isValidatorSymbol] = true;

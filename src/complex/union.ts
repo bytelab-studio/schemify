@@ -46,4 +46,5 @@ export function union<
     }, union, options);
 }
 
+union.module = "complex";
 union[isValidatorSymbol] = true;

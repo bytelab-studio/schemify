@@ -45,4 +45,5 @@ export function list<Item extends UnknownValidatorFunction, Options extends List
     }, list, options);
 }
 
+list.module = "complex";
 list[isValidatorSymbol] = true;

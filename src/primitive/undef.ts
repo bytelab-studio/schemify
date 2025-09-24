@@ -22,4 +22,5 @@ export function undef<Options extends UndefOptions>(options?: Options): Validato
     }, undef, options);
 }
 
+undef.module = "primitive";
 undef[isValidatorSymbol] = true;

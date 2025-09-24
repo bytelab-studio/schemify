@@ -51,4 +51,5 @@ export function number<Options extends NumberOptions>(options?: Options): Valida
     }, number, options);
 }
 
+number.module = "primitive";
 number[isValidatorSymbol] = true;

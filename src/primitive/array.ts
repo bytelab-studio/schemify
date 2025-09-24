@@ -37,4 +37,5 @@ export function array<Options extends ArrayOptions>(options?: Options): Validato
     }, array, options);
 }
 
+array.module = "primitive";
 array[isValidatorSymbol] = true;

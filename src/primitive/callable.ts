@@ -22,4 +22,5 @@ export function callable<Options extends CallableOptions>(options?: Options): Va
     },  callable, options);
 }
 
+callable.module = "primitive";
 callable[isValidatorSymbol] = true;

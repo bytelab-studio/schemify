@@ -22,4 +22,5 @@ export function nil<Options extends NilOptions>(options?: Options): ValidatorFun
     }, nil, options);
 }
 
+nil.module = "primitive";
 nil[isValidatorSymbol] = true;

@@ -32,4 +32,5 @@ export function nested<Schema extends Record<string, UnknownValidatorFunction>, 
     },  nested, options);
 }
 
+nested.module = "complex";
 nested[isValidatorSymbol] = true;

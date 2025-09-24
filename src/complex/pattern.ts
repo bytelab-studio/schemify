@@ -19,4 +19,5 @@ export function pattern<Options extends PatternOptions>(patt: RegExp, options?: 
     }, pattern, options);
 }
 
+pattern.module = "complex";
 pattern[isValidatorSymbol] = true;

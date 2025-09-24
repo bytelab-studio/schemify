@@ -89,4 +89,5 @@ export function datetimeISO<Options extends DatetimeISO>(options?: Options): Val
     }, datetimeISO, options);
 }
 
+datetimeISO.module = "datetime";
 datetimeISO[isValidatorSymbol] = true;

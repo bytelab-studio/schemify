@@ -17,7 +17,8 @@ export function any<Options extends AnyOptions>(options?: Options): ValidatorFun
 
     return raw((value: NonNullable<unknown>, _: ValidatorContext): ValidatorReturn<Options, any> => {
         return value;
-    }, raw, options);
+    }, any, options);
 }
 
+any.module = "primitive";
 any[isValidatorSymbol] = true;
