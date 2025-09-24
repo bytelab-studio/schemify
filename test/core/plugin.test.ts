@@ -1,5 +1,5 @@
 import * as Schema from "../../src";
-import {describe, expect, test, vi} from "vitest";
+import {describe, expect, test, vi, beforeEach} from "vitest";
 
 const PLUGIN_NAME: string = "test-plugin";
 
@@ -11,7 +11,16 @@ const PLUGIN_DEFINITION: Schema.pluginTools.SchemifyPlugin<[]> = {
     }
 }
 
-const [_, PLUGIN_ACTIVATOR] = Schema.pluginTools.registerPlugin(PLUGIN_DEFINITION);
+let PLUGIN_ACTIVATOR: () => any;
+
+beforeEach(() => {
+    if (Schema.pluginTools.pluginExist(PLUGIN_NAME)) {
+        return;
+    }
+
+    const [_, _PLUGIN_ACTIVATOR] = Schema.pluginTools.registerPlugin(PLUGIN_DEFINITION);
+    PLUGIN_ACTIVATOR = _PLUGIN_ACTIVATOR;
+});
 
 describe("plugin system", () => {
     test("'raw' executes plugins", () => {

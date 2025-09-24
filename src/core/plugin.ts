@@ -48,6 +48,10 @@ export function registerPlugin<const Arguments extends any[]>(definition: Schemi
     ];
 }
 
+export function pluginExist(name: string): boolean {
+    return usedPluginNames.has(name);
+}
+
 export function getASTPlugin(name: string): SchemifyPlugin<any[]> | null {
     if (!(name in pluginRegistry) || !pluginRegistry[name].onPlugin) {
         return null;
@@ -85,7 +89,7 @@ export function plugin<T extends UnknownValidatorFunction>(validator: T, ...plug
     for (const option of plugins) {
         const plugin: SchemifyPlugin<any[]> | null = getASTPlugin(option.name);
         if (!plugin) {
-            console.warn(`[schemify] Unknown plugin: ${option.name}`)
+            console.warn(`[schemify] Unknown plugin: ${option.name}`);
             continue;
         }
 
