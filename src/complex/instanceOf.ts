@@ -5,7 +5,7 @@ import {
     SchemaError,
     ValidatorContext,
     ValidatorFunction,
-    ValidatorReturn,
+    ValidatorReturn
 } from "../core";
 
 export interface InstanceOfOptions extends RawOptions {

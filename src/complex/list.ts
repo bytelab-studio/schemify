@@ -7,7 +7,8 @@ import {
     ValidatorContext,
     ValidatorFunction,
     ValidatorReturn,
-    UnknownValidatorFunction
+    UnknownValidatorFunction,
+    reflection
 } from "../core";
 
 export interface ListOptions extends RawOptions {
@@ -18,7 +19,7 @@ export interface ListOptions extends RawOptions {
 export function list<Item extends UnknownValidatorFunction, Options extends ListOptions>(item: Item, options?: Options): ValidatorFunction<Options, Array<InferSchema<Item>>> {
     options = options ?? {} as Options;
 
-    return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Item>[]> => {
+    const validator: ValidatorFunction<Options, Array<InferSchema<Item>>> = raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Item>[]> => {
         if (typeof value != "object" || !Array.isArray(value)) {
             throw new SchemaError("Value is not an array", context);
         }
@@ -43,6 +44,17 @@ export function list<Item extends UnknownValidatorFunction, Options extends List
 
         return value as ValidatorReturn<Options, InferSchema<Item>[]>;
     }, list, options);
+
+    validator.getChildren = function* (): Generator<reflection.ASTChild> {
+        yield {
+            type: reflection.ASTChildType.VALIDATOR,
+            key: 0,
+            value: item,
+            kind: reflection.ASTChildKind.INFINITY,
+        }
+    }
+
+    return validator;    
 }
 
 list.module = "complex";

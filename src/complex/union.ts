@@ -7,7 +7,8 @@ import {
     ValidatorContext,
     ValidatorFunction,
     ValidatorReturn,
-    UnknownValidatorFunction
+    UnknownValidatorFunction,
+    reflection
 } from "../core";
 
 export interface UnionOptions extends RawOptions {
@@ -24,7 +25,7 @@ export function union<
         throw new SchemaError("Union must have at least one item", new ValidatorContext());
     }
 
-    return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Items>[number]> => {
+    const validator: ValidatorFunction<Options, InferSchema<Items>[number]> = raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Items>[number]> => {
         const errors: [string, SchemaError][] = [];
 
         for (const validator of items) {
@@ -44,6 +45,19 @@ export function union<
 
         throw new SchemaError("Value does not match any of the union types\n" + reasonText, context);
     }, union, options);
+
+    validator.getChildren = function*(): Generator<reflection.ASTChild> {
+        for (let i: number = 0; i < items.length; i++) {
+            yield {
+                type: reflection.ASTChildType.VALIDATOR,
+                key: i,
+                value: items[i],
+                kind: reflection.ASTChildKind.POSITIONAL
+            }
+        }
+    }
+
+    return validator;
 }
 
 union.module = "complex";

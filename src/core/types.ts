@@ -1,5 +1,6 @@
 import {ValidatorContext} from "./utils";
 import type {RawOptions} from "./raw";
+import type {ASTChild} from "./reflection";
 
 export const isValidatorSymbol: unique symbol = Symbol("isValidatorSymbol");
 
@@ -14,6 +15,8 @@ export interface ValidatorDefinition<Options extends RawOptions, TypeBase> {
     tryValidate(value: unknown): value is ValidatorReturn<Options, TypeBase>;
 
     constructor: ValidatorConstructor;
+
+    getChildren?: () => Generator<ASTChild>;
 }
 
 export type ValidatorFunction<Options extends RawOptions, TypeBase> = ((value: unknown, context: ValidatorContext) => ValidatorReturn<Options, TypeBase>) & ValidatorDefinition<Options, TypeBase>;

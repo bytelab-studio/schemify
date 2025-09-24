@@ -7,7 +7,7 @@ export const enum Modules {
     Datetime = "datetime"
 }
 
-export function isValidator(validator: UnknownValidatorFunction, module: string, name: string): boolean;
+export function isValidator(validator: UnknownValidatorFunction, module: string | Modules, name: string): boolean;
 export function isValidator(validator: UnknownValidatorFunction, validatorID: string): boolean;
 export function isValidator(validator: UnknownValidatorFunction, ...args: string[]): boolean {
     if (args.length == 1) {
@@ -26,7 +26,7 @@ export function isValidator(validator: UnknownValidatorFunction, ...args: string
     return constructor.module == module && constructor.name == name; 
 }
 
-export function getValidatorModule(validator: UnknownValidatorFunction): string {
+export function getValidatorModule(validator: UnknownValidatorFunction): string | Modules {
     return validator.constructor.module;
 }
 
@@ -36,4 +36,39 @@ export function getValidatorName(validator: UnknownValidatorFunction): string {
 
 export function getValidatorId(validator: UnknownValidatorFunction): string {
     return `${validator.constructor.module}.${validator.constructor.name}`
+}
+
+export const enum ASTChildKind {
+    PROPERTY,
+    POSITIONAL,
+    INFINITY
+}
+
+export const enum ASTChildType {
+    VALIDATOR,
+    PRIMITIVE
+}
+
+export interface ASTValidatorChild {
+    type: ASTChildType.VALIDATOR;
+    key: string | number;
+    value: UnknownValidatorFunction;
+    kind: ASTChildKind;
+}
+
+export interface ASTPrimitiveChild {
+    type: ASTChildType.PRIMITIVE;
+    key: string | number;
+    value: unknown;
+    kind: ASTChildKind;
+}
+
+export type ASTChild = ASTValidatorChild | ASTPrimitiveChild;
+
+export function* getChildren(validator: UnknownValidatorFunction): Generator<ASTChild> {
+    if (!validator.getChildren) {
+        return;
+    }
+
+    yield* validator.getChildren();
 }

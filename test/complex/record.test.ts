@@ -1,31 +1,10 @@
 import * as Schema from "../../src";
 import {describe, expect, test} from "vitest";
 
-describe("'union' validator", () => {
-    test("empty list -> throws", () => {
-        // @ts-expect-error
-        expect(() => Schema.union([])).throws();
-    });
-
-    test("error is rethrown", () => {
-        const validator = Schema.union([Schema.raw(() => {
-            throw new Error("Not a SchemaError")
-        }, Schema.raw)]);
-        expect(() => validator.validate(0)).throws();
-        try {
-            validator.validate(0);
-        } catch (e) {
-            expect(e).not.instanceOf(Schema.SchemaError);
-            return;
-        }
-
-        // Should not reach this point
-        expect(false).toBe(true);
-    });
-
+describe("'record' validator", () => {
     describe("reflection", () => {
         test("getChildren", () => {
-            const validator = Schema.union([Schema.string(), Schema.number()]);
+            const validator = Schema.record(Schema.string(), Schema.number());
             const items: Schema.reflection.ASTChild[] = Array.from(Schema.reflection.getChildren(validator));
             expect(items.length).toBe(2);
             expect(items[0].kind).toBe(Schema.reflection.ASTChildKind.POSITIONAL);
