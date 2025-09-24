@@ -17,6 +17,8 @@ export interface ValidatorDefinition<Options extends RawOptions, TypeBase> {
     constructor: ValidatorConstructor;
 
     getChildren?: () => Generator<ASTChild>;
+
+    options: Options;
 }
 
 export type ValidatorFunction<Options extends RawOptions, TypeBase> = ((value: unknown, context: ValidatorContext) => ValidatorReturn<Options, TypeBase>) & ValidatorDefinition<Options, TypeBase>;

@@ -1,4 +1,5 @@
-import type {UnknownValidatorFunction, ValidatorConstructor} from "./types";
+import type {RawOptions} from "./raw";
+import type {UnknownValidatorFunction, ValidatorConstructor, ValidatorFunction} from "./types";
 
 export const enum Modules {
     Core = "core",
@@ -71,4 +72,8 @@ export function* getChildren(validator: UnknownValidatorFunction): Generator<AST
     }
 
     yield* validator.getChildren();
+}
+
+export function getOptions<Options extends RawOptions>(validator: ValidatorFunction<Options, unknown>): Options {
+    return validator.options as Options;
 }
