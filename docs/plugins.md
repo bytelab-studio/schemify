@@ -145,7 +145,7 @@ methods can both be applied for **runtime** and **AST plugins**.
 ### `setData`
 
 ```ts
-declare function setData<T>(plugin: symbol, validator: ValidatorFunction<RawOptions, unknown>, key: string | number | symbol, value: T): void;
+declare function setData<T>(plugin: symbol, validator: UnkownValidatorFunction, key: string | number | symbol, value: T): void;
 ```
 
 Can be used to set a `value` on the `validator` with the `key` in the scope of the `plugin`.
@@ -153,7 +153,7 @@ Can be used to set a `value` on the `validator` with the `key` in the scope of t
 ### `getData`
 
 ```ts
-declare function getData<T>(plugin: symbol, validator: ValidatorFunction<RawOptions, unknown>, key: string | number | symbol): T | null;
+declare function getData<T>(plugin: symbol, validator: UnkownValidatorFunction, key: string | number | symbol): T | null;
 ```
 
 Retrieves a value of type `T` on the `validator` with the `key` in the scope of the `plugin` or else `null` if nothing
@@ -162,7 +162,7 @@ was stored in the `key` slot.
 ### `hasData`
 
 ```ts
-declare function hasData(plugin: symbol, validator: ValidatorFunction<RawOptions, unknown>, key: string | number | symbol): boolean;
+declare function hasData(plugin: symbol, validator: UnkownValidatorFunction, key: string | number | symbol): boolean;
 ```
 
 Determines if a slot on the `validator` with the `key` in the scope of the `plugin` exist.
