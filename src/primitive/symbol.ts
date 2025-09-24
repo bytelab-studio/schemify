@@ -22,7 +22,7 @@ export function symbol<Options extends SymbolOption>(options?: Options): Validat
         }
 
         return value;
-    }, options);
+    }, symbol, options);
 }
 
 symbol[isValidatorSymbol] = true;

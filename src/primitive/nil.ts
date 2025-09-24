@@ -19,7 +19,7 @@ export function nil<Options extends NilOptions>(options?: Options): ValidatorFun
     return raw((_: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, null> => {
         // we can only throw here, because if the value is null, it would already be returned by `raw`
         throw new SchemaError("Value is not null", context);
-    }, options);
+    }, nil, options);
 }
 
 nil[isValidatorSymbol] = true;

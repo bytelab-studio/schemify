@@ -31,7 +31,7 @@ export function bigint<Options extends BigIntOptions>(options?: Options): Valida
         }
 
         return value;
-    }, options);
+    }, bigint, options);
 }
 
 bigint[isValidatorSymbol] = true;

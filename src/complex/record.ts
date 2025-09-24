@@ -33,7 +33,7 @@ export function record<
         }
 
         return value as ValidatorReturn<Options, Record<IsAcceptable<InferSchema<K>, PropertyKeys>, InferSchema<V>>>;
-    }, options);
+    }, record, options);
 }
 
 record[isValidatorSymbol] = true;

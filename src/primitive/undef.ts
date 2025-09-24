@@ -19,7 +19,7 @@ export function undef<Options extends UndefOptions>(options?: Options): Validato
     return raw((_: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, undefined> => {
         // we can only throw here, because if the value is undefined, it would already be returned by `raw`
         throw new SchemaError("Value is not undefined", context);
-    }, options);
+    }, undef, options);
 }
 
 undef[isValidatorSymbol] = true;

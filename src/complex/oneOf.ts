@@ -24,7 +24,7 @@ export function oneOf<
         }
 
         return value as ValidatorReturn<Options, Items[number]>;
-    }, options);
+    }, oneOf, options);
 }
 
 oneOf[isValidatorSymbol] = true;

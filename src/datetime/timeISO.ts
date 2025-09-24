@@ -83,7 +83,7 @@ export function timeISO<Options extends TimeISOOptions>(options?: Options): Vali
 
     return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, string> => {
          return pattern(regexp, options)(value, context);
-    }, options);
+    }, timeISO, options);
 }
 
 export declare namespace timeISO {

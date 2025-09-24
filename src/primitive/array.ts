@@ -34,7 +34,7 @@ export function array<Options extends ArrayOptions>(options?: Options): Validato
         }
 
         return value;
-    }, options);
+    }, array, options);
 }
 
 array[isValidatorSymbol] = true;

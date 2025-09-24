@@ -48,7 +48,7 @@ export function number<Options extends NumberOptions>(options?: Options): Valida
         }
 
         return value;
-    }, options);
+    }, number, options);
 }
 
 number[isValidatorSymbol] = true;

@@ -5,7 +5,7 @@ import {
     SchemaError,
     ValidatorContext,
     ValidatorFunction,
-    ValidatorReturn
+    ValidatorReturn,
 } from "../core";
 
 export interface InstanceOfOptions extends RawOptions {
@@ -26,7 +26,7 @@ export function instanceOf<
         }
 
         return value as InstanceType<Class>;
-    }, options);
+    }, instanceOf, options);
 }
 
 instanceOf[isValidatorSymbol] = true;

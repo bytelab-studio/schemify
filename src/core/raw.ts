@@ -8,7 +8,7 @@ export interface RawOptions {
     optional?: boolean;
 }
 
-export function initValidatorFunction<Options extends RawOptions, TypeBase>(validator: ValidatorFunction<Options, TypeBase>): void {
+export function initValidatorFunction<Options extends RawOptions, TypeBase>(validator: ValidatorFunction<Options, TypeBase>, constructor: ValidatorConstructor): void {
     validator.validate = (value: unknown): ValidatorReturn<Options, TypeBase> => {
         return validator(value, new ValidatorContext());
     }
@@ -24,9 +24,10 @@ export function initValidatorFunction<Options extends RawOptions, TypeBase>(vali
             throw e;
         }
     }
+    validator.constructor = constructor;
 }
 
-export function raw<Options extends RawOptions, TypeBase>(cb: (value: NonNullable<unknown>, context: ValidatorContext) => ValidatorReturn<Options, TypeBase>, options?: RawOptions): ValidatorFunction<Options, TypeBase> {
+export function raw<Options extends RawOptions, TypeBase>(cb: (value: NonNullable<unknown>, context: ValidatorContext) => ValidatorReturn<Options, TypeBase>, constructor: ValidatorConstructor, options?: RawOptions): ValidatorFunction<Options, TypeBase> {
     options = options ?? {} as Options;
 
     const validator: ValidatorFunction<Options, TypeBase> = ((value: unknown, context: ValidatorContext): ValidatorReturn<Options, TypeBase> => {
@@ -52,7 +53,7 @@ export function raw<Options extends RawOptions, TypeBase>(cb: (value: NonNullabl
         return cb(value, context);
     }) as ValidatorFunction<Options, TypeBase>;
 
-    initValidatorFunction(validator);
+    initValidatorFunction(validator, constructor);
 
     return validator;
 }

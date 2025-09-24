@@ -19,7 +19,7 @@ export function callable<Options extends CallableOptions>(options?: Options): Va
         }
 
         return value;
-    }, options);
+    },  callable, options);
 }
 
 callable[isValidatorSymbol] = true;

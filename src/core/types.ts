@@ -12,14 +12,16 @@ export interface ValidatorDefinition<Options extends RawOptions, TypeBase> {
     validate(value: unknown): ValidatorReturn<Options, TypeBase>;
 
     tryValidate(value: unknown): value is ValidatorReturn<Options, TypeBase>;
+
+    constructor: ValidatorConstructor;
 }
 
 export type ValidatorFunction<Options extends RawOptions, TypeBase> = ((value: unknown, context: ValidatorContext) => ValidatorReturn<Options, TypeBase>) & ValidatorDefinition<Options, TypeBase>;
 
 export type UnknownValidatorFunction = ValidatorFunction<RawOptions, unknown>;
 
-export type ValidatorConstructor = (() => UnknownValidatorFunction) & {
-
+export type ValidatorConstructor = ((...args: any[]) => UnknownValidatorFunction) & {
+    name: string;
 };
 
 export type InferSchema<T> =

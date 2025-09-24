@@ -43,7 +43,7 @@ export function union<
         const reasonText: string = errors.map(([name, error]) => `- ${name}: ${error.message}`).join("\n");
 
         throw new SchemaError("Value does not match any of the union types\n" + reasonText, context);
-    }, options);
+    }, union, options);
 }
 
 union[isValidatorSymbol] = true;

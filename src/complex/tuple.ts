@@ -37,7 +37,7 @@ export function tuple<
         }
 
         return value as ValidatorReturn<Options, InferSchema<Items>>;
-    }, options);
+    }, tuple, options);
 }
 
 tuple[isValidatorSymbol] = true;

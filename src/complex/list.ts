@@ -42,7 +42,7 @@ export function list<Item extends UnknownValidatorFunction, Options extends List
         }
 
         return value as ValidatorReturn<Options, InferSchema<Item>[]>;
-    }, options);
+    }, list, options);
 }
 
 list[isValidatorSymbol] = true;

@@ -23,7 +23,7 @@ export function never(): ValidatorFunction<{}, never> {
         throw new SchemaError("Value is not allowed", context);
     }) as ValidatorFunction<{}, never>
 
-    initValidatorFunction(validator);
+    initValidatorFunction(validator, never);
     return validator;
 }
 

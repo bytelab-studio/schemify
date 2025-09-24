@@ -29,7 +29,7 @@ export function nested<Schema extends Record<string, UnknownValidatorFunction>, 
         }
 
         return value as ValidatorReturn<Options, InferSchema<Schema>>;
-    }, options);
+    },  nested, options);
 }
 
 nested[isValidatorSymbol] = true;

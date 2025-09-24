@@ -21,7 +21,7 @@ export function boolean<Options extends BooleanOptions>(options?: Options): Vali
         }
 
         return value;
-    }, options);
+    }, boolean, options);
 }
 
 boolean[isValidatorSymbol] = true;

@@ -34,7 +34,7 @@ export function string<Options extends StringOptions>(options?: Options): Valida
         }
 
         return value;
-    }, options);
+    }, string, options);
 }
 
 string[isValidatorSymbol] = true;

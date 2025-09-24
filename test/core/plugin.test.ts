@@ -17,7 +17,7 @@ describe("plugin system", () => {
     test("'raw' executes plugins", () => {
         using spy = vi.spyOn(PLUGIN_DEFINITION, "onValidation");
 
-        const validator = Schema.raw<{}, string>((v) => v as string);
+        const validator = Schema.raw<{}, string>((v) => v as string, Schema.raw);
         const v: string = validator.validate("foo");
 
         expect(v).toBe("foo");
