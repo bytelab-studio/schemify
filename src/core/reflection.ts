@@ -1,5 +1,12 @@
 import type {UnknownValidatorFunction, ValidatorConstructor} from "./types";
 
+export const enum Modules {
+    Core = "core",
+    Primitive = "primitive",
+    Complex = "complex",
+    Datetime = "datetime"
+}
+
 export function isValidator(validator: UnknownValidatorFunction, module: string, name: string): boolean;
 export function isValidator(validator: UnknownValidatorFunction, validatorID: string): boolean;
 export function isValidator(validator: UnknownValidatorFunction, ...args: string[]): boolean {
@@ -17,4 +24,16 @@ export function isValidator(validator: UnknownValidatorFunction, ...args: string
     const constructor: ValidatorConstructor = validator.constructor;
 
     return constructor.module == module && constructor.name == name; 
+}
+
+export function getValidatorModule(validator: UnknownValidatorFunction): string {
+    return validator.constructor.module;
+}
+
+export function getValidatorName(validator: UnknownValidatorFunction): string {
+    return validator.constructor.name;
+}
+
+export function getValidatorId(validator: UnknownValidatorFunction): string {
+    return `${validator.constructor.module}.${validator.constructor.name}`
 }
