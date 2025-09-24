@@ -4,6 +4,7 @@ import {
     isValidatorSymbol,
     raw,
     RawOptions,
+    UnknownValidatorFunction,
     ValidatorContext,
     ValidatorFunction,
     ValidatorReturn
@@ -17,8 +18,8 @@ export interface RecordOptions extends ObjectOptions {
 type PropertyKeys = string | number | symbol;
 
 export function record<
-    K extends ValidatorFunction<RawOptions, unknown>,
-    V extends ValidatorFunction<RawOptions, unknown>,
+    K extends UnknownValidatorFunction,
+    V extends UnknownValidatorFunction,
     Options extends RecordOptions>(key: K, property: V, options?: Options): ValidatorFunction<Options, Record<IsAcceptable<InferSchema<K>, PropertyKeys>, InferSchema<V>>> {
     options = options ?? {} as Options;
 

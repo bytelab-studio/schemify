@@ -6,7 +6,8 @@ import {
     SchemaError,
     ValidatorContext,
     ValidatorFunction,
-    ValidatorReturn
+    ValidatorReturn,
+    UnknownValidatorFunction
 } from "../core";
 
 export interface UnionOptions extends RawOptions {
@@ -14,7 +15,7 @@ export interface UnionOptions extends RawOptions {
 }
 
 export function union<
-    const Items extends readonly [ValidatorFunction<RawOptions, unknown>, ...Array<ValidatorFunction<RawOptions, unknown>>],
+    const Items extends readonly [UnknownValidatorFunction, ...UnknownValidatorFunction[]],
     Options extends UnionOptions
 >(items: Items, options?: Options): ValidatorFunction<Options, InferSchema<Items>[number]> {
     options = options ?? {} as Options;

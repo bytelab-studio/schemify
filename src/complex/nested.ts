@@ -6,14 +6,15 @@ import {
     SchemaError,
     ValidatorContext,
     ValidatorFunction,
-    ValidatorReturn
+    ValidatorReturn,
+    UnknownValidatorFunction
 } from "../core";
 
 export interface NestedOptions extends RawOptions {
 
 }
 
-export function nested<Schema extends Record<string, ValidatorFunction<RawOptions, unknown>>, Options extends NestedOptions>(schema: Schema, options?: Options): ValidatorFunction<Options, InferSchema<Schema>> {
+export function nested<Schema extends Record<string, UnknownValidatorFunction>, Options extends NestedOptions>(schema: Schema, options?: Options): ValidatorFunction<Options, InferSchema<Schema>> {
     options = options ?? {} as Options;
 
     return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Schema>> => {

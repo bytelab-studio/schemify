@@ -1,5 +1,5 @@
 import {ValidatorContext} from "./utils";
-import {RawOptions} from "./raw";
+import type {RawOptions} from "./raw";
 
 export const isValidatorSymbol: unique symbol = Symbol("isValidatorSymbol");
 
@@ -15,6 +15,12 @@ export interface ValidatorDefinition<Options extends RawOptions, TypeBase> {
 }
 
 export type ValidatorFunction<Options extends RawOptions, TypeBase> = ((value: unknown, context: ValidatorContext) => ValidatorReturn<Options, TypeBase>) & ValidatorDefinition<Options, TypeBase>;
+
+export type UnknownValidatorFunction = ValidatorFunction<RawOptions, unknown>;
+
+export type ValidatorConstructor = (() => UnknownValidatorFunction) & {
+
+};
 
 export type InferSchema<T> =
     // simple

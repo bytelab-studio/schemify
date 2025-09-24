@@ -6,7 +6,8 @@ import {
     SchemaError,
     ValidatorContext,
     ValidatorFunction,
-    ValidatorReturn
+    ValidatorReturn,
+    UnknownValidatorFunction
 } from "../core";
 
 export interface TupleOptions extends RawOptions {
@@ -14,7 +15,7 @@ export interface TupleOptions extends RawOptions {
 }
 
 export function tuple<
-    const Items extends readonly [ValidatorFunction<RawOptions, unknown>, ...Array<ValidatorFunction<RawOptions, unknown>>],
+    const Items extends readonly [UnknownValidatorFunction, ...UnknownValidatorFunction[]],
     Options extends TupleOptions
 >(items: Items, options?: Options): ValidatorFunction<Options, InferSchema<Items>> {
     options = options ?? {} as Options;

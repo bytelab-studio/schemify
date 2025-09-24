@@ -1,4 +1,4 @@
-import {isValidatorSymbol, ValidatorFunction} from "./types";
+import {isValidatorSymbol, UnknownValidatorFunction, ValidatorFunction} from "./types";
 import {RawOptions} from "./raw";
 
 export class SchemaError extends Error {
@@ -47,6 +47,6 @@ export class ValidatorContext {
     }
 }
 
-export function isValidator(value: unknown): value is (...args: unknown[]) => ValidatorFunction<RawOptions, unknown> {
+export function isValidator(value: unknown): value is (...args: unknown[]) => UnknownValidatorFunction {
     return (value as any)[isValidatorSymbol] == true;
 }

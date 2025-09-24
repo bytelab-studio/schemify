@@ -1,4 +1,4 @@
-import type {ValidatorFunction, ValidatorReturn} from "./types";
+import type {ValidatorConstructor, ValidatorFunction, ValidatorReturn} from "./types";
 import {isValidatorSymbol} from "./types";
 import {SchemaError, ValidatorContext} from "./utils";
 import * as plugin from "./plugin";

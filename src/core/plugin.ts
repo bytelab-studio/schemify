@@ -1,5 +1,5 @@
 import {RawOptions} from "./raw";
-import {ValidatorDefinition, ValidatorFunction} from "./types";
+import {UnknownValidatorFunction, ValidatorDefinition, ValidatorFunction} from "./types";
 
 type DataKey = string | number | symbol;
 
@@ -9,8 +9,8 @@ interface ValidatorPluginDefinition<Options extends RawOptions, TypeBase> extend
 
 export interface SchemifyPlugin<Arguments extends any[]> {
     name: string;
-    onPlugin?: (this: SchemifyPluginContext, root: ValidatorFunction<RawOptions, unknown>, ...args: Arguments) => void;
-    onValidation?: (this: SchemifyPluginContext, validator: ValidatorFunction<RawOptions, unknown>) => void;
+    onPlugin?: (this: SchemifyPluginContext, root: UnknownValidatorFunction, ...args: Arguments) => void;
+    onValidation?: (this: SchemifyPluginContext, validator: UnknownValidatorFunction) => void;
 }
 
 interface PluginOptions {
@@ -21,11 +21,11 @@ interface PluginOptions {
 export type PluginActivationFunction<Arguments extends any[]> = (...args: Arguments) => PluginOptions;
 
 export interface SchemifyPluginContext {
-    setData<T>(pluginSymbol: symbol, validator: ValidatorFunction<RawOptions, unknown>, key: DataKey, data: T): void;
+    setData<T>(pluginSymbol: symbol, validator: UnknownValidatorFunction, key: DataKey, data: T): void;
 
-    getData<T>(pluginSymbol: symbol, validator: ValidatorFunction<RawOptions, unknown>, key: DataKey): T | null;
+    getData<T>(pluginSymbol: symbol, validator: UnknownValidatorFunction, key: DataKey): T | null;
 
-    hasData(pluginSymbol: symbol, validator: ValidatorFunction<RawOptions, unknown>, key: DataKey): boolean;
+    hasData(pluginSymbol: symbol, validator: UnknownValidatorFunction, key: DataKey): boolean;
 }
 
 const usedPluginNames: Set<string> = new Set<string>();
@@ -65,7 +65,7 @@ export function* getRuntimePlugins(names: string[] = []): Generator<SchemifyPlug
     }
 }
 
-export function executeRuntimePlugin(plugin: SchemifyPlugin<any[]>, validator: ValidatorFunction<RawOptions, unknown>): void {
+export function executeRuntimePlugin(plugin: SchemifyPlugin<any[]>, validator: UnknownValidatorFunction): void {
     if (!plugin.onValidation) {
         return;
     }
@@ -77,7 +77,7 @@ export function executeRuntimePlugin(plugin: SchemifyPlugin<any[]>, validator: V
     }, validator);
 }
 
-export function plugin<T extends ValidatorFunction<RawOptions, unknown>>(validator: T, ...plugins: PluginOptions[]): T {
+export function plugin<T extends UnknownValidatorFunction>(validator: T, ...plugins: PluginOptions[]): T {
     if (plugins.length == 0) {
         return validator;
     }

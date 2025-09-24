@@ -6,7 +6,8 @@ import {
     SchemaError,
     ValidatorContext,
     ValidatorFunction,
-    ValidatorReturn
+    ValidatorReturn,
+    UnknownValidatorFunction
 } from "../core";
 
 export interface ListOptions extends RawOptions {
@@ -14,7 +15,7 @@ export interface ListOptions extends RawOptions {
     maxLength?: number;
 }
 
-export function list<Item extends ValidatorFunction<RawOptions, unknown>, Options extends ListOptions>(item: Item, options?: Options): ValidatorFunction<Options, Array<InferSchema<Item>>> {
+export function list<Item extends UnknownValidatorFunction, Options extends ListOptions>(item: Item, options?: Options): ValidatorFunction<Options, Array<InferSchema<Item>>> {
     options = options ?? {} as Options;
 
     return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Item>[]> => {
