@@ -6,7 +6,8 @@ import {
     ValidatorContext,
     ValidatorFunction,
     ValidatorReturn,
-    reflection
+    reflection,
+    ValidatorConstructor
 } from "../core";
 
 export interface OneOfOptions extends RawOptions {
@@ -47,8 +48,8 @@ oneOf[isValidatorSymbol] = true;
 export declare namespace oneOf {
     export function enumValues<
         const Items extends Record<string, string | number>,
-        Options extends OneOfOptions
-    >(items: Items, options?: OneOfOptions): ValidatorFunction<Options, Items[keyof Items]>;
+        Options extends EnumValuesOptions
+    >(items: Items, options?: Options): ValidatorFunction<Options, Items[keyof Items]>;
 
     export interface EnumValuesOptions extends OneOfOptions {
 
@@ -62,5 +63,6 @@ function enumValues<
     return oneOf(Object.values(items) as [(string | number), ...(string | number)[]], options) as ValidatorFunction<Options, Items[keyof Items]>;
 }
 
+enumValues.module = "complex";
 enumValues[isValidatorSymbol] = true;
 oneOf.enumValues = enumValues;
