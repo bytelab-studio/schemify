@@ -73,7 +73,8 @@ export default defineConfig({
             {
                 text: "Extend",
                 items: [
-                    { text: "Plugins", link: "/plugins" }
+                    { text: "Plugins", link: "/plugins" },
+                    { text: "Reflection", link: "/reflection" }
                 ]
             },
             {
