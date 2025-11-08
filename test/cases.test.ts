@@ -1,26 +1,32 @@
 import * as Schema from "../src";
-import {describe, test, expect} from "vitest";
+import {describe, expect, test} from "vitest";
 import {
     Enum,
-    getValidators, instanceOfMock,
+    getValidators,
+    instanceOfMock,
     listMock,
     literalMock,
     nestedMock,
     oneOfEnumMock,
-    oneOfMock, patternMock, recordMock,
+    oneOfMock,
+    patternMock,
+    recordMock,
     tupleMock,
     unionMock
 } from "./utils";
 
 type Case = [any, Array<(options?: Schema.RawOptions) => Schema.ValidatorFunction<Schema.RawOptions, any>>];
 
+const intX = [Schema.int8, Schema.int16, Schema.int32, Schema.int64];
+const uintX = [Schema.uint8, Schema.uint16, Schema.uint32, Schema.uint64];
+
 export const cases: Case[] = [
     ["abc", [Schema.string, unionMock, Schema.any, Schema.unknown]],
     ["", [Schema.string, unionMock, Schema.any, Schema.unknown]],
-    [-123, [Schema.number, unionMock, Schema.any, Schema.unknown]],
-    [123, [Schema.number, unionMock, Schema.any, Schema.unknown]],
+    [-123, [Schema.number, unionMock, Schema.any, Schema.unknown, Schema.numeric, ...intX]],
+    [123, [Schema.number, unionMock, Schema.any, Schema.unknown, Schema.numeric, ...intX, ...uintX]],
     [-0, [Schema.number, unionMock, Schema.any, Schema.unknown]],
-    [0, [Schema.number, unionMock, Schema.any, Schema.unknown]],
+    [0, [Schema.number, unionMock, Schema.any, Schema.unknown, Schema.numeric, ...intX, ...uintX]],
     [NaN, [Schema.number, unionMock, Schema.any, Schema.unknown]],
     [Infinity, [Schema.number, unionMock, Schema.any, Schema.unknown]],
     [-Infinity, [Schema.number, unionMock, Schema.any, Schema.unknown]],
@@ -39,13 +45,15 @@ export const cases: Case[] = [
     [Enum.B, [unionMock, oneOfEnumMock, Schema.string, Schema.any, Schema.unknown]],
     [Symbol("symbol"), [Schema.symbol, Schema.any, Schema.unknown]],
     [/regexp/, [Schema.regexp, Schema.any, Schema.unknown]],
-    [-123n, [Schema.bigint, Schema.any, Schema.unknown]],
-    [123n, [Schema.bigint, Schema.any, Schema.unknown]],
-    [-0n, [Schema.bigint, Schema.any, Schema.unknown]],
-    [0n, [Schema.bigint, Schema.any, Schema.unknown]],
+    [-123n, [Schema.bigint, Schema.any, Schema.unknown, Schema.numeric, ...intX]],
+    [123n, [Schema.bigint, Schema.any, Schema.unknown, Schema.numeric, ...intX, ...uintX]],
+    [0n, [Schema.bigint, Schema.any, Schema.unknown, Schema.numeric, ...intX, ...uintX]],
+    [9223372036854775808n, [Schema.bigint, Schema.any, Schema.unknown, Schema.numeric, Schema.uint64]],
     ["pattern", [unionMock, patternMock, Schema.string, Schema.any, Schema.unknown]],
-    [() => {}, [Schema.callable, Schema.any, Schema.unknown]],
-    [function () {}, [Schema.callable, Schema.any, Schema.unknown]],
+    [() => {
+    }, [Schema.callable, Schema.any, Schema.unknown]],
+    [function () {
+    }, [Schema.callable, Schema.any, Schema.unknown]],
     [new Date(), [Schema.object, instanceOfMock, recordMock, Schema.any, Schema.unknown]]
 ];
 
