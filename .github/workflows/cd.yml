@@ -70,14 +70,3 @@ jobs:
           tag_name: v${{ steps.merged.outputs.version }}
           name: Release v${{ steps.merged.outputs.version }}
           generate_release_notes: true
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: release
-    if: needs.release.outputs.version != ''
-    steps:
-      - name: Install CapRover
-        run: npm install -g caprover
-
-      - name: Deploy
-        run: caprover deploy --host ${{ secrets.CAPROVER_SERVER }} --appToken ${{ secrets.APP_TOKEN }} --appName ${{ secrets.APP_NAME }} --branch ${{ github.ref_name }}
