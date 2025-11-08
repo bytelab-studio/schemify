@@ -104,7 +104,7 @@ Schemify schemas form an **abstract syntax tree (AST)**. You can traverse it usi
 ### `getChildren`
 
 ```ts
-declare function* getChildren(validator: UnknownValidatorFunction): Generator<ASTChild>;
+declare function getChildren(validator: UnknownValidatorFunction): Generator<ASTChild>;
 ```
 
 Returns a generator that yields child nodes of a given validator, if it supports children. Each yielded item conforms to the `ASTChild` type, which may represent either a validator node or a primitive value.
