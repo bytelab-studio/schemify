@@ -10,9 +10,14 @@ you need to create custom validators or work with advanced validation logic.
 
 ## Validators
 
-- [`Schemify.raw`](/modules/core/raw)
+- [`Schema.raw`](/modules/core/raw)
 
 ## Utilities
 
+- [`Schema.plugin`](/modules/core/plugin)
 - [`SchemaError`](/modules/core/schemaError)
 - [`ValidatorContext`](/modules/core/validatorContext)
+
+## Namespaces
+
+- [`reflection`](/modules/core/reflection)

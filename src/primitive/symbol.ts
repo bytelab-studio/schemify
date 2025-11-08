@@ -22,7 +22,8 @@ export function symbol<Options extends SymbolOption>(options?: Options): Validat
         }
 
         return value;
-    }, options);
+    }, symbol, options);
 }
 
+symbol.module = "primitive";
 symbol[isValidatorSymbol] = true;

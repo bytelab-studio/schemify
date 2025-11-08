@@ -83,12 +83,13 @@ export function timeISO<Options extends TimeISOOptions>(options?: Options): Vali
 
     return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, string> => {
          return pattern(regexp, options)(value, context);
-    }, options);
+    }, timeISO, options);
 }
 
 export declare namespace timeISO {
     export function extractPattern(format: string, appendStartEndFlag?: boolean): RegExp;
 }
 
+timeISO.module = "datetime";
 timeISO.extractPattern = extractPattern;
 timeISO[isValidatorSymbol] = true;

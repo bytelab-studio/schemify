@@ -71,12 +71,20 @@ export default defineConfig({
                 ]
             },
             {
+                text: "Extend",
+                items: [
+                    { text: "Plugins", link: "/plugins" }
+                ]
+            },
+            {
                 text: "Core",
                 link: "/modules/core/",
                 items: [
                     { text: 'Schema.raw', link: '/modules/core/raw' },
+                    { text: 'Schema.plugin', link: '/modules/core/plugin' },
                     { text: 'SchemaError', link: '/modules/core/schemaError' },
-                    { text: 'ValidatorContext', link: '/modules/core/validatorContext' }
+                    { text: 'ValidatorContext', link: '/modules/core/validatorContext' },
+                    { text: "reflection", link: "/modules/core/reflection" }
                 ]
             },
             {
@@ -125,6 +133,22 @@ export default defineConfig({
                     { text: 'Schema.dateISO', link: '/modules/datetime/dateISO' },
                     { text: 'Schema.timeISO', link: '/modules/datetime/timeISO' },
                     { text: 'Schema.datetimeISO', link: '/modules/datetime/datetimeISO' }
+                ]
+            },
+            {
+                text: "Numeric",
+                link: "/modules/numeric/",
+                items: [
+                    { text: "Schema.int8", link: "/modules/numeric/int8" },
+                    { text: "Schema.int16", link: "/modules/numeric/int16" },
+                    { text: "Schema.int32", link: "/modules/numeric/int32" },
+                    { text: "Schema.int64", link: "/modules/numeric/int64" },
+                    { text: "Schema.numeric", link: "/modules/numeric/numeric" },
+                    { text: "Schema.uint8", link: "/modules/numeric/uint8" },
+                    { text: "Schema.uint16", link: "/modules/numeric/uint16" },
+                    { text: "Schema.uint32", link: "/modules/numeric/uint32" },
+                    { text: "Schema.uint64", link: "/modules/numeric/uint64" },
+                    { text: "Numeric", link: "/modules/numeric/numeric-namespace" }
                 ]
             }
         ],

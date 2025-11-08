@@ -86,7 +86,8 @@ export function datetimeISO<Options extends DatetimeISO>(options?: Options): Val
 
     return raw((value: NonNullable<unknown>, context: ValidatorContext) => {
         return pattern(regexp, options)(value, context);
-    }, options);
+    }, datetimeISO, options);
 }
 
+datetimeISO.module = "datetime";
 datetimeISO[isValidatorSymbol] = true;

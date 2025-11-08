@@ -30,3 +30,5 @@ All modules follow the same principle:
   Useful for structured data like arrays, objects, or custom constraints.
 - [**Datetime**](/modules/datetime/) \
   Focuses on **ISO 8601** date and time validators.
+- [**Numeric**](/modules/numeric/) \
+  Focuses on advanced integer parsing.

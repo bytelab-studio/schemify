@@ -16,7 +16,7 @@ describe("'raw' validator", () => {
         test("forwards error", () => {
             const validator = Schema.raw(() => {
                 throw new Error("Not a SchemaError")
-            });
+            }, Schema.raw);
             expect(() => validator.tryValidate(0)).throws();
             try {
                 validator.tryValidate(0);

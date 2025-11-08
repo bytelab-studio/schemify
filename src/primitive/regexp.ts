@@ -21,7 +21,8 @@ export function regexp<Options extends RegexOptions>(options?: Options): Validat
         }
 
         return value;
-    }, options);
+    }, regexp, options);
 }
 
+regexp.module = "primitive";
 regexp[isValidatorSymbol] = true;
