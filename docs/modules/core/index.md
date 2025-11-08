@@ -10,7 +10,7 @@ you need to create custom validators or work with advanced validation logic.
 
 ## Validators
 
-- [`Schemify.raw`](/modules/core/raw)
+- [`Schema.raw`](/modules/core/raw)
 
 ## Utilities
 
