@@ -33,9 +33,10 @@ export function isEven<Options extends IsEvenOptions>(options?: Options): Schema
         }
 
         return value % 2 == 0;
-    }, options);
+    }, isEven, options);
 }
 
+isEven.module = "MyModule";
 // Mark the validator as a validator.
 isEven[Schema.isValidatorSymbol] = true;
 ```
