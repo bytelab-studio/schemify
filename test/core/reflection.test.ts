@@ -11,7 +11,7 @@ describe("reflection", () => {
         expect(Schema.reflection.getValidatorName(schema)).toBe("any");
     });
 
-    test("options are forwared", () => {
+    test("options are forwarded", () => {
         const schema = Schema.any({
             nullable: true,
             optional: false
