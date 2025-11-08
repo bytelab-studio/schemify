@@ -31,4 +31,4 @@ All modules follow the same principle:
 - [**Datetime**](/modules/datetime/) \
   Focuses on **ISO 8601** date and time validators.
 - [**Numeric**](/modules/numeric/) \
-  Focuses on advance integer parsing.
+  Focuses on advanced integer parsing.

@@ -33,11 +33,11 @@ Each of these functions combines integer validation with range checks to ensure 
 ```typescript
 import Schema from "@bytelab.studio/schemify";
 
-if (Schema.Numeric.isUInt(120)) {
+if (Schema.Numeric.isUInt8(120)) {
     console.log("120 is in bounds of UInt8");
 }
 
-if (!Schema.Numeric.isUInt(256)) {
+if (!Schema.Numeric.isUInt8(256)) {
     console.log("256 is not in bounds of UInt8");
 }
 ```
