@@ -5,7 +5,8 @@ export const enum Modules {
     Core = "core",
     Primitive = "primitive",
     Complex = "complex",
-    Datetime = "datetime"
+    Datetime = "datetime",
+    Numeric = "numeric"
 }
 
 export function isValidator(validator: UnknownValidatorFunction, module: string | Modules, name: string): boolean;

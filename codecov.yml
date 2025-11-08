@@ -19,6 +19,10 @@ component_management:
       name: Datetime
       paths:
         - src/datetime/
+    - component_id: module_numeric
+      name: Numeric
+      paths:
+        - src/numeric/
 
 coverage:
   status:
