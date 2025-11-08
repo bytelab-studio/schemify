@@ -15,7 +15,8 @@ export interface UnknownOptions extends RawOptions {
 export function unknown<Options extends UnknownOptions>(options?: Options): ValidatorFunction<Options, unknown> {
     return raw((value: NonNullable<unknown>, _: ValidatorContext): ValidatorReturn<Options, unknown> => {
         return value;
-    }, options);
+    }, unknown, options);
 }
 
+unknown.module = "primitive";
 unknown[isValidatorSymbol] = true;

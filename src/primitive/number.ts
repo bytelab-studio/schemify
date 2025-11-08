@@ -48,7 +48,8 @@ export function number<Options extends NumberOptions>(options?: Options): Valida
         }
 
         return value;
-    }, options);
+    }, number, options);
 }
 
+number.module = "primitive";
 number[isValidatorSymbol] = true;

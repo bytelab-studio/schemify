@@ -14,5 +14,10 @@ you need to create custom validators or work with advanced validation logic.
 
 ## Utilities
 
+- [`Schema.plugin`](/modules/core/plugin)
 - [`SchemaError`](/modules/core/schemaError)
 - [`ValidatorContext`](/modules/core/validatorContext)
+
+## Namespaces
+
+- [`reflection`](/modules/core/reflection)

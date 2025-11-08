@@ -6,7 +6,9 @@ import {
     SchemaError,
     ValidatorContext,
     ValidatorFunction,
-    ValidatorReturn
+    ValidatorReturn,
+    UnknownValidatorFunction,
+    reflection
 } from "../core";
 
 export interface UnionOptions extends RawOptions {
@@ -14,7 +16,7 @@ export interface UnionOptions extends RawOptions {
 }
 
 export function union<
-    const Items extends readonly [ValidatorFunction<RawOptions, unknown>, ...Array<ValidatorFunction<RawOptions, unknown>>],
+    const Items extends readonly [UnknownValidatorFunction, ...UnknownValidatorFunction[]],
     Options extends UnionOptions
 >(items: Items, options?: Options): ValidatorFunction<Options, InferSchema<Items>[number]> {
     options = options ?? {} as Options;
@@ -23,7 +25,7 @@ export function union<
         throw new SchemaError("Union must have at least one item", new ValidatorContext());
     }
 
-    return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Items>[number]> => {
+    const validator: ValidatorFunction<Options, InferSchema<Items>[number]> = raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Items>[number]> => {
         const errors: [string, SchemaError][] = [];
 
         for (const validator of items) {
@@ -42,7 +44,21 @@ export function union<
         const reasonText: string = errors.map(([name, error]) => `- ${name}: ${error.message}`).join("\n");
 
         throw new SchemaError("Value does not match any of the union types\n" + reasonText, context);
-    }, options);
+    }, union, options);
+
+    validator.getChildren = function*(): Generator<reflection.ASTChild> {
+        for (let i: number = 0; i < items.length; i++) {
+            yield {
+                type: reflection.ASTChildType.VALIDATOR,
+                key: i,
+                value: items[i],
+                kind: reflection.ASTChildKind.POSITIONAL
+            }
+        }
+    }
+
+    return validator;
 }
 
+union.module = "complex";
 union[isValidatorSymbol] = true;

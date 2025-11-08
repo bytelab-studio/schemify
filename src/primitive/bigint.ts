@@ -31,7 +31,8 @@ export function bigint<Options extends BigIntOptions>(options?: Options): Valida
         }
 
         return value;
-    }, options);
+    }, bigint, options);
 }
 
+bigint.module = "primitive";
 bigint[isValidatorSymbol] = true;

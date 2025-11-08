@@ -21,7 +21,8 @@ export function object<Options extends ObjectOptions>(options?: Options): Valida
         }
 
         return value;
-    }, options);
+    }, object, options);
 }
 
+object.module = "primitive";
 object[isValidatorSymbol] = true;

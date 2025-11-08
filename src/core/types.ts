@@ -1,5 +1,6 @@
 import {ValidatorContext} from "./utils";
-import {RawOptions} from "./raw";
+import type {RawOptions} from "./raw";
+import type {ASTChild} from "./reflection";
 
 export const isValidatorSymbol: unique symbol = Symbol("isValidatorSymbol");
 
@@ -8,13 +9,26 @@ export type ValidatorReturn<Options extends RawOptions, TypeBase> =
     | (Options["nullable"] extends true ? null : never)
     | (Options["optional"] extends true ? undefined : never);
 
-interface ValidatorDefinition<Options extends RawOptions, TypeBase> {
+export interface ValidatorDefinition<Options extends RawOptions, TypeBase> {
     validate(value: unknown): ValidatorReturn<Options, TypeBase>;
 
     tryValidate(value: unknown): value is ValidatorReturn<Options, TypeBase>;
+
+    constructor: ValidatorConstructor;
+
+    getChildren?: () => Generator<ASTChild>;
+
+    options: Options;
 }
 
 export type ValidatorFunction<Options extends RawOptions, TypeBase> = ((value: unknown, context: ValidatorContext) => ValidatorReturn<Options, TypeBase>) & ValidatorDefinition<Options, TypeBase>;
+
+export type UnknownValidatorFunction = ValidatorFunction<RawOptions, unknown>;
+
+export type ValidatorConstructor = ((...args: any[]) => UnknownValidatorFunction) & {
+    name: string;
+    module: string;
+};
 
 export type InferSchema<T> =
     // simple

@@ -6,7 +6,9 @@ import {
     SchemaError,
     ValidatorContext,
     ValidatorFunction,
-    ValidatorReturn
+    ValidatorReturn,
+    UnknownValidatorFunction,
+    reflection
 } from "../core";
 
 export interface TupleOptions extends RawOptions {
@@ -14,12 +16,12 @@ export interface TupleOptions extends RawOptions {
 }
 
 export function tuple<
-    const Items extends readonly [ValidatorFunction<RawOptions, unknown>, ...Array<ValidatorFunction<RawOptions, unknown>>],
+    const Items extends readonly [UnknownValidatorFunction, ...UnknownValidatorFunction[]],
     Options extends TupleOptions
 >(items: Items, options?: Options): ValidatorFunction<Options, InferSchema<Items>> {
     options = options ?? {} as Options;
 
-    return raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Items>> => {
+    const validator: ValidatorFunction<Options, InferSchema<Items>> = raw((value: NonNullable<unknown>, context: ValidatorContext): ValidatorReturn<Options, InferSchema<Items>> => {
         if (typeof value != "object" || !Array.isArray(value)) {
             throw new SchemaError("Value is not an array", context);
         }
@@ -36,7 +38,21 @@ export function tuple<
         }
 
         return value as ValidatorReturn<Options, InferSchema<Items>>;
-    }, options);
+    }, tuple, options);
+
+    validator.getChildren = function*(): Generator<reflection.ASTChild> {
+        for (let i: number = 0; i < items.length; i++) {
+            yield {
+                type: reflection.ASTChildType.VALIDATOR,
+                key: i,
+                value: items[i],
+                kind: reflection.ASTChildKind.POSITIONAL
+            }
+        }
+    }
+
+    return validator;
 }
 
+tuple.module = "complex";
 tuple[isValidatorSymbol] = true;

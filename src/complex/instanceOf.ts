@@ -26,7 +26,8 @@ export function instanceOf<
         }
 
         return value as InstanceType<Class>;
-    }, options);
+    }, instanceOf, options);
 }
 
+instanceOf.module = "complex";
 instanceOf[isValidatorSymbol] = true;

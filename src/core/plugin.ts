@@ -1,0 +1,136 @@
+import {RawOptions} from "./raw";
+import {UnknownValidatorFunction, ValidatorDefinition, ValidatorFunction} from "./types";
+
+type DataKey = string | number | symbol;
+
+interface ValidatorPluginDefinition<Options extends RawOptions, TypeBase> extends ValidatorDefinition<Options, TypeBase> {
+    metadata?: Record<symbol, Record<DataKey, unknown>>;
+}
+
+export interface SchemifyPlugin<Arguments extends any[]> {
+    name: string;
+    onPlugin?: (this: SchemifyPluginContext, root: UnknownValidatorFunction, ...args: Arguments) => void;
+    onValidation?: (this: SchemifyPluginContext, validator: UnknownValidatorFunction) => void;
+}
+
+interface PluginOptions {
+    name: string;
+    arguments: any[];
+}
+
+export type PluginActivationFunction<Arguments extends any[]> = (...args: Arguments) => PluginOptions;
+
+export interface SchemifyPluginContext {
+    setData<T>(pluginSymbol: symbol, validator: UnknownValidatorFunction, key: DataKey, data: T): void;
+
+    getData<T>(pluginSymbol: symbol, validator: UnknownValidatorFunction, key: DataKey): T | null;
+
+    hasData(pluginSymbol: symbol, validator: UnknownValidatorFunction, key: DataKey): boolean;
+}
+
+const usedPluginNames: Set<string> = new Set<string>();
+const pluginRegistry: Record<string, SchemifyPlugin<any[]>> = {};
+
+export function registerPlugin<const Arguments extends any[]>(definition: SchemifyPlugin<Arguments>): [symbol, PluginActivationFunction<Arguments>] {
+    if (usedPluginNames.has(definition.name)) {
+        throw `Plugin with the name '${definition.name}' is already registered`;
+    }
+
+    usedPluginNames.add(definition.name);
+    const dataSymbol: symbol = Symbol(definition.name);
+    pluginRegistry[definition.name] = definition;
+    return [
+        dataSymbol,
+        (...args: Arguments): PluginOptions => ({
+            name: definition.name,
+            arguments: args
+        })
+    ];
+}
+
+export function pluginExist(name: string): boolean {
+    return usedPluginNames.has(name);
+}
+
+export function getASTPlugin(name: string): SchemifyPlugin<any[]> | null {
+    if (!(name in pluginRegistry) || !pluginRegistry[name].onPlugin) {
+        return null;
+    }
+
+    return pluginRegistry[name];
+}
+
+export function* getRuntimePlugins(names: string[] = []): Generator<SchemifyPlugin<any[]>> {
+    const plugins: [string, SchemifyPlugin<any[]>][] = Object.entries(pluginRegistry);
+    for (const [name, plugin] of plugins) {
+        if (plugin.onValidation && (names.length == 0 || names.includes(name))) {
+            yield plugin;
+        }
+    }
+}
+
+export function executeRuntimePlugin(plugin: SchemifyPlugin<any[]>, validator: UnknownValidatorFunction): void {
+    if (!plugin.onValidation) {
+        return;
+    }
+
+    plugin.onValidation.call({
+        hasData,
+        setData,
+        getData
+    }, validator);
+}
+
+export function plugin<T extends UnknownValidatorFunction>(validator: T, ...plugins: PluginOptions[]): T {
+    if (plugins.length == 0) {
+        return validator;
+    }
+
+    for (const option of plugins) {
+        const plugin: SchemifyPlugin<any[]> | null = getASTPlugin(option.name);
+        if (!plugin) {
+            console.warn(`[schemify] Unknown plugin: ${option.name}`);
+            continue;
+        }
+
+        plugin.onPlugin!.call({
+            hasData,
+            setData,
+            getData
+        }, validator, ...option.arguments);
+    }
+
+    return validator;
+}
+
+function setData<T>(pluginSymbol: symbol, validator: ValidatorPluginDefinition<RawOptions, unknown>, key: DataKey, data: T): void {
+    if (!validator.metadata) {
+        validator.metadata = {};
+    }
+    if (!validator.metadata[pluginSymbol]) {
+        validator.metadata[pluginSymbol] = {};
+    }
+
+    validator.metadata[pluginSymbol][key] = data;
+}
+
+function getData<T>(pluginSymbol: symbol, validator: ValidatorPluginDefinition<RawOptions, unknown>, key: DataKey): T | null {
+    if (!hasData(pluginSymbol, validator, key)) {
+        return null;
+    }
+
+    return validator.metadata![pluginSymbol][key] as T;
+}
+
+function hasData(pluginSymbol: symbol, validator: ValidatorPluginDefinition<RawOptions, unknown>, key: DataKey): boolean {
+    if (!validator.metadata) {
+        validator.metadata = {};
+        return false;
+    }
+    if (!validator.metadata[pluginSymbol]) {
+        validator.metadata[pluginSymbol] = {};
+        return false;
+    }
+
+    return key in validator.metadata[pluginSymbol];
+}

@@ -71,12 +71,20 @@ export default defineConfig({
                 ]
             },
             {
+                text: "Extend",
+                items: [
+                    { text: "Plugins", link: "/plugins" }
+                ]
+            },
+            {
                 text: "Core",
                 link: "/modules/core/",
                 items: [
                     { text: 'Schema.raw', link: '/modules/core/raw' },
+                    { text: 'Schema.plugin', link: '/modules/core/plugin' },
                     { text: 'SchemaError', link: '/modules/core/schemaError' },
-                    { text: 'ValidatorContext', link: '/modules/core/validatorContext' }
+                    { text: 'ValidatorContext', link: '/modules/core/validatorContext' },
+                    { text: "reflection", link: "/modules/core/reflection" }
                 ]
             },
             {
